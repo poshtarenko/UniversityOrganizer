@@ -1,25 +1,32 @@
 package com.nyanband.university_organizer.controller;
 
-import com.nyanband.university_organizer.entity.Course;
+import com.nyanband.university_organizer.controller.util.ControllerUtils;
+import com.nyanband.university_organizer.dto.CourseDto;
 import com.nyanband.university_organizer.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequestMapping("/courses")
 public class CourseController {
-
-    private static final String PATH = "/courses";
 
     @Autowired
     CourseService courseService;
 
-    @GetMapping(value = PATH)
-    public List<Course> getUserCourses() {
-        return courseService.getUserCourses(1);
+    @GetMapping
+    public List<CourseDto> getUserCourses(Authentication authentication) {
+        long userId = ControllerUtils.getUserId(authentication);
+        return courseService.getUserCourses(userId);
     }
+
+    @PostMapping
+    public void addCourse(Authentication authentication,
+                          @RequestBody CourseDto courseDto) {
+        courseService.save(courseDto);
+    }
+
 
 }
