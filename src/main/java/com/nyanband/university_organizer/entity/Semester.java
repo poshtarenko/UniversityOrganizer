@@ -21,6 +21,11 @@ public class Semester extends BaseEntity {
     @JoinColumn(name = "course_id")
     Course course;
 
-    @OneToMany(mappedBy = "semester")
+    @OneToMany(mappedBy = "semester", fetch = FetchType.LAZY)
     List<Discipline> disciplines;
+
+    public Semester(Integer number, Course course) {
+        this.number = number;
+        this.course = course;
+    }
 }

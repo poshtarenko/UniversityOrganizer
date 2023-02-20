@@ -20,6 +20,6 @@ public class Discipline extends BaseEntity {
     @JoinColumn(name = "semester_id")
     Semester semester;
 
-    @OneToMany(mappedBy = "discipline")
+    @OneToMany(mappedBy = "discipline", fetch = FetchType.LAZY)
     List<Folder> folders;
 }

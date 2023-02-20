@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -23,10 +24,21 @@ public class CourseController {
     }
 
     @PostMapping
-    public void addCourse(Authentication authentication,
-                          @RequestBody CourseDto courseDto) {
+    public void add(Authentication authentication,
+                    @RequestBody Integer courseNumber) {
+        CourseDto courseDto = new CourseDto(
+                0L,
+                courseNumber,
+                ControllerUtils.getUserId(authentication),
+                Collections.emptyList()
+        );
         courseService.save(courseDto);
     }
 
+    @PostMapping("/delete")
+    public void delete(Authentication authentication,
+                       @RequestBody Long courseId) {
+        courseService.delete(courseId);
+    }
 
 }

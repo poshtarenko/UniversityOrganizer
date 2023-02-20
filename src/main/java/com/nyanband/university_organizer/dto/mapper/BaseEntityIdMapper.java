@@ -11,7 +11,7 @@ public class BaseEntityIdMapper {
         return new User(id);
     }
 
-    public Long toIdEntity(BaseEntity entity){
+    public Long toIdEntity(BaseEntity entity) {
         return entity.getId();
     }
 

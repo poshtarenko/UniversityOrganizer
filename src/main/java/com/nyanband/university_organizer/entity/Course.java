@@ -23,4 +23,8 @@ public class Course extends BaseEntity {
 
     @OneToMany(mappedBy = "course")
     List<Semester> semesters;
+
+    public Course(Long id) {
+        super(id);
+    }
 }

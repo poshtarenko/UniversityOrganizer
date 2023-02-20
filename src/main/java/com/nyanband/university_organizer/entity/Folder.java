@@ -20,6 +20,6 @@ public class Folder extends BaseEntity {
     @JoinColumn(name = "discipline_id")
     Discipline discipline;
 
-    @OneToMany(mappedBy = "folder")
+    @OneToMany(mappedBy = "folder", fetch = FetchType.LAZY)
     List<File> files;
 }

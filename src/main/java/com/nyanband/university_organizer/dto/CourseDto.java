@@ -10,5 +10,5 @@ public class CourseDto {
     Long id;
     Integer number;
     Long userId;
-    List<Semester> semesters;
+    List<SemesterDto> semesters;
 }

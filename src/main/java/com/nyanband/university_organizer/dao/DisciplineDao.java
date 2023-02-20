@@ -8,7 +8,7 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Repository
-public class CourseDao {
+public class DisciplineDao {
 
     @PersistenceContext
     private Session session;
