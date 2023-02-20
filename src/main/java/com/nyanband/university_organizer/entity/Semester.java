@@ -5,14 +5,22 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.*;
 import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class Semester {
-    Long id;
+@Entity
+public class Semester extends BaseEntity {
+    @Column(name = "num")
     Integer number;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "course_id")
+    Course course;
+
+    @OneToMany(mappedBy = "semester")
     List<Discipline> disciplines;
 }
