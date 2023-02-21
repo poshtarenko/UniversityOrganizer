@@ -1,4 +1,4 @@
-package com.nyanband.university_organizer.service;
+package com.nyanband.university_organizer.security.userdetails;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.nyanband.university_organizer.entity.User;
@@ -20,7 +20,9 @@ public class UserDetailsImpl implements UserDetails {
     private final String password;
     private final Collection<? extends GrantedAuthority> authorities;
 
-    public UserDetailsImpl(Long id, String email, String password, Collection<? extends GrantedAuthority> authorities) {
+    public UserDetailsImpl(Long id,
+                           String email, String password,
+                           Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
         this.email = email;
         this.password = password;

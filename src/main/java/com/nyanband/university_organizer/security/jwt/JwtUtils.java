@@ -1,6 +1,6 @@
-package com.nyanband.university_organizer.config.jwt;
+package com.nyanband.university_organizer.security.jwt;
 
-import com.nyanband.university_organizer.service.UserDetailsImpl;
+import com.nyanband.university_organizer.security.userdetails.UserDetailsImpl;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureAlgorithm;

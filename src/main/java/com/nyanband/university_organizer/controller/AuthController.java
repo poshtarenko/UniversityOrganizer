@@ -1,22 +1,22 @@
 package com.nyanband.university_organizer.controller;
 
-import com.nyanband.university_organizer.config.jwt.JwtUtils;
-import com.nyanband.university_organizer.dao.UserDao;
 import com.nyanband.university_organizer.entity.ERole;
 import com.nyanband.university_organizer.entity.Role;
 import com.nyanband.university_organizer.entity.User;
 import com.nyanband.university_organizer.repository.RoleRepository;
 import com.nyanband.university_organizer.repository.UserRepository;
+import com.nyanband.university_organizer.security.jwt.JwtUtils;
 import com.nyanband.university_organizer.security.pojo.JwtResponse;
 import com.nyanband.university_organizer.security.pojo.LoginRequest;
 import com.nyanband.university_organizer.security.pojo.MessageResponse;
 import com.nyanband.university_organizer.security.pojo.SignupRequest;
-import com.nyanband.university_organizer.service.UserDetailsImpl;
+import com.nyanband.university_organizer.security.userdetails.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -26,26 +26,28 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/auth")
 @CrossOrigin(origins = "*", maxAge = 3600)
 public class AuthController {
-    @Autowired
+
     AuthenticationManager authenticationManager;
-
-    @Autowired
-    UserRepository userRespository;
-
-    @Autowired
-    UserDao userDao;
-
-    @Autowired
+    UserRepository userRepository;
     RoleRepository roleRepository;
-
-    @Autowired
     PasswordEncoder passwordEncoder;
+    JwtUtils jwtUtils;
 
     @Autowired
-    JwtUtils jwtUtils;
+    public AuthController(AuthenticationManager authenticationManager,
+                          UserRepository userRespository,
+                          RoleRepository roleRepository,
+                          PasswordEncoder passwordEncoder,
+                          JwtUtils jwtUtils) {
+        this.authenticationManager = authenticationManager;
+        this.userRepository = userRespository;
+        this.roleRepository = roleRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.jwtUtils = jwtUtils;
+    }
 
     @PostMapping("/sign_in")
     public ResponseEntity<?> authUser(@RequestBody LoginRequest loginRequest) {
@@ -60,7 +62,7 @@ public class AuthController {
 
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
         List<String> roles = userDetails.getAuthorities().stream()
-                .map(item -> item.getAuthority())
+                .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());
 
         return ResponseEntity.ok(new JwtResponse(
@@ -74,13 +76,13 @@ public class AuthController {
     @PostMapping("/sign_up")
     public ResponseEntity<?> registerUser(@RequestBody SignupRequest signupRequest) {
 
-        if (userDao.existsByEmail(signupRequest.getEmail())) {
+        if (userRepository.existsByEmail(signupRequest.getEmail())) {
             return ResponseEntity
                     .badRequest()
                     .body(new MessageResponse("Error: Username is exist"));
         }
 
-        if (userDao.existsByEmail(signupRequest.getEmail())) {
+        if (userRepository.existsByEmail(signupRequest.getEmail())) {
             return ResponseEntity
                     .badRequest()
                     .body(new MessageResponse("Error: Email is exist"));
@@ -123,7 +125,7 @@ public class AuthController {
             });
         }
         user.setRoles(roles);
-        userRespository.save(user);
+        userRepository.save(user);
         return ResponseEntity.ok(new MessageResponse("User CREATED"));
     }
 }

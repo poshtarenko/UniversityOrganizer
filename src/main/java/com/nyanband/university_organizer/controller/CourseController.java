@@ -2,8 +2,10 @@ package com.nyanband.university_organizer.controller;
 
 import com.nyanband.university_organizer.controller.util.ControllerUtils;
 import com.nyanband.university_organizer.dto.CourseDto;
+import com.nyanband.university_organizer.security.pojo.MessageResponse;
 import com.nyanband.university_organizer.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,8 +16,12 @@ import java.util.List;
 @RequestMapping("/courses")
 public class CourseController {
 
-    @Autowired
     CourseService courseService;
+
+    @Autowired
+    public CourseController(CourseService courseService) {
+        this.courseService = courseService;
+    }
 
     @GetMapping
     public List<CourseDto> getUserCourses(Authentication authentication) {
@@ -24,7 +30,7 @@ public class CourseController {
     }
 
     @PostMapping
-    public void add(Authentication authentication,
+    public ResponseEntity<MessageResponse> add(Authentication authentication,
                     @RequestBody Integer courseNumber) {
         CourseDto courseDto = new CourseDto(
                 0L,
@@ -33,12 +39,22 @@ public class CourseController {
                 Collections.emptyList()
         );
         courseService.save(courseDto);
+        return ControllerUtils.getOkResponse();
     }
 
     @PostMapping("/delete")
-    public void delete(Authentication authentication,
+    public ResponseEntity<MessageResponse> delete(Authentication authentication,
                        @RequestBody Long courseId) {
-        courseService.delete(courseId);
+        long userId = ControllerUtils.getUserId(authentication);
+
+        if (courseService.isCourseBelongsToUser(courseId, userId)) {
+            courseService.delete(courseId);
+            return ControllerUtils.getOkResponse();
+        } else {
+            return ResponseEntity
+                    .badRequest()
+                    .body(new MessageResponse("Error: this course do not belong to current user"));
+        }
     }
 
 }

@@ -1,8 +1,8 @@
 package com.nyanband.university_organizer.config;
 
-import com.nyanband.university_organizer.config.jwt.AuthEntryPointJwt;
-import com.nyanband.university_organizer.config.jwt.AuthTokenFilter;
-import com.nyanband.university_organizer.service.UserDetailsServiceImpl;
+import com.nyanband.university_organizer.security.jwt.AuthEntryPointJwt;
+import com.nyanband.university_organizer.security.jwt.AuthTokenFilter;
+import com.nyanband.university_organizer.security.userdetails.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,6 +21,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
     @Autowired
     UserDetailsServiceImpl userDetailsService;
 
@@ -55,7 +56,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests()
-                .antMatchers("/api/auth/**").permitAll()
+                .antMatchers("/auth/**").permitAll()
                 .anyRequest().authenticated();
 
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
