@@ -18,6 +18,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/disciplines")
+@CrossOrigin(origins = "*", maxAge = 3600)
 @Api(description = "Discipline API")
 public class DisciplineController {
 

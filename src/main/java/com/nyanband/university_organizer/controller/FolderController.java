@@ -21,6 +21,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/folders")
+@CrossOrigin(origins = "*", maxAge = 3600)
 @Api(description = "Folder API")
 public class FolderController {
 

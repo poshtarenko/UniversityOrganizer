@@ -21,6 +21,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/files")
+@CrossOrigin(origins = "*", maxAge = 3600)
 @Api(description = "File API")
 public class FileController {
 
