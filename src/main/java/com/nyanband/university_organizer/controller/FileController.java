@@ -9,6 +9,8 @@ import com.nyanband.university_organizer.exception.AccessDeniedException;
 import com.nyanband.university_organizer.service.DisciplineService;
 import com.nyanband.university_organizer.service.FileService;
 import com.nyanband.university_organizer.service.FolderService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +21,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/files")
+@Api(description = "File API")
 public class FileController {
 
     FolderService folderService;
@@ -31,6 +34,7 @@ public class FileController {
     }
 
     @GetMapping
+    @ApiOperation("Get all files by folder id")
     public List<FileDto> getFolderFiles(Authentication authentication,
                                         @RequestBody Long folderId) {
         long userId = ControllerUtils.getUserId(authentication);
@@ -42,6 +46,7 @@ public class FileController {
     }
 
     @PostMapping
+    @ApiOperation("Create new file")
     public ResponseEntity<?> addFile(@RequestBody SaveFileDto fileDto,
                                            Authentication authentication) {
         long userId = ControllerUtils.getUserId(authentication);
@@ -55,6 +60,7 @@ public class FileController {
     }
 
     @PostMapping("/delete")
+    @ApiOperation("Delete file by id")
     public ResponseEntity<?> deleteFile(Authentication authentication,
                                               @RequestBody Long fileId) {
         long userId = ControllerUtils.getUserId(authentication);

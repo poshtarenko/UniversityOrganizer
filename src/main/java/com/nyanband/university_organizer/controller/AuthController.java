@@ -11,6 +11,8 @@ import com.nyanband.university_organizer.security.pojo.LoginRequest;
 import com.nyanband.university_organizer.security.pojo.MessageResponse;
 import com.nyanband.university_organizer.security.pojo.SignupRequest;
 import com.nyanband.university_organizer.security.userdetails.UserDetailsImpl;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -28,6 +30,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/auth")
 @CrossOrigin(origins = "*", maxAge = 3600)
+@Api(description = "Authentication API")
 public class AuthController {
 
     AuthenticationManager authenticationManager;
@@ -50,6 +53,7 @@ public class AuthController {
     }
 
     @PostMapping("/sign_in")
+    @ApiOperation("Authentication")
     public ResponseEntity<?> authUser(@RequestBody LoginRequest loginRequest) {
 
         Authentication authentication = authenticationManager
@@ -74,6 +78,7 @@ public class AuthController {
     }
 
     @PostMapping("/sign_up")
+    @ApiOperation("Registration")
     public ResponseEntity<?> registerUser(@RequestBody SignupRequest signupRequest) {
 
         if (userRepository.existsByEmail(signupRequest.getEmail())) {

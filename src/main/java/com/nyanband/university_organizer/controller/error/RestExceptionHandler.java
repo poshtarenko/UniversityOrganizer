@@ -11,9 +11,11 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+import springfox.documentation.annotations.ApiIgnore;
 
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @ControllerAdvice
+@ApiIgnore
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
     @Override
