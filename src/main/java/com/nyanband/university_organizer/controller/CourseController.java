@@ -6,6 +6,8 @@ import com.nyanband.university_organizer.dto.SaveCourseDto;
 import com.nyanband.university_organizer.exception.AccessDeniedException;
 import com.nyanband.university_organizer.security.pojo.MessageResponse;
 import com.nyanband.university_organizer.service.CourseService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +19,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/courses")
+@Api(description = "Course API")
 public class CourseController {
 
     CourseService courseService;
@@ -27,12 +30,14 @@ public class CourseController {
     }
 
     @GetMapping
+    @ApiOperation("Get all user courses")
     public List<CourseDto> getMyCourses(Authentication authentication) {
         long userId = ControllerUtils.getUserId(authentication);
         return courseService.getUserCourses(userId);
     }
 
     @PostMapping
+    @ApiOperation("Create new course")
     public ResponseEntity<?> addCourse(Authentication authentication,
                                        @RequestBody Integer courseNumber) {
         SaveCourseDto courseDto = new SaveCourseDto(
@@ -44,6 +49,7 @@ public class CourseController {
     }
 
     @PostMapping("/delete")
+    @ApiOperation("Delete course by id")
     public ResponseEntity<?> deleteCourse(Authentication authentication,
                                           @RequestBody Long courseId) {
         long userId = ControllerUtils.getUserId(authentication);

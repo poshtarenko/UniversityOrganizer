@@ -6,6 +6,8 @@ import com.nyanband.university_organizer.dto.SaveDisciplineDto;
 import com.nyanband.university_organizer.exception.AccessDeniedException;
 import com.nyanband.university_organizer.service.DisciplineService;
 import com.nyanband.university_organizer.service.SemesterService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +18,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/disciplines")
+@Api(description = "Discipline API")
 public class DisciplineController {
 
     SemesterService semesterService;
@@ -28,6 +31,7 @@ public class DisciplineController {
     }
 
     @GetMapping
+    @ApiOperation("Get all disciplines by semester id")
     public List<DisciplineDto> getSemesterDisciplines(Authentication authentication,
                                                 @RequestBody Long semesterId) {
         long userId = ControllerUtils.getUserId(authentication);
@@ -39,6 +43,7 @@ public class DisciplineController {
     }
 
     @PostMapping
+    @ApiOperation("Create new discipline")
     public ResponseEntity<?> addDiscipline(@RequestBody SaveDisciplineDto disciplineDto,
                                            Authentication authentication) {
         long userId = ControllerUtils.getUserId(authentication);
@@ -52,6 +57,7 @@ public class DisciplineController {
     }
 
     @PostMapping("/delete")
+    @ApiOperation("Delete discipline by id")
     public ResponseEntity<?> deleteDiscipline(Authentication authentication,
                                               @RequestBody Long disciplineId) {
         long userId = ControllerUtils.getUserId(authentication);

@@ -9,6 +9,8 @@ import com.nyanband.university_organizer.exception.AccessDeniedException;
 import com.nyanband.university_organizer.service.DisciplineService;
 import com.nyanband.university_organizer.service.FolderService;
 import com.nyanband.university_organizer.service.SemesterService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +21,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/folders")
+@Api(description = "Folder API")
 public class FolderController {
 
     DisciplineService disciplineService;
@@ -31,6 +34,7 @@ public class FolderController {
     }
 
     @GetMapping
+    @ApiOperation("Get all folders by discipline id")
     public List<FolderDto> getDisciplineFolders(Authentication authentication,
                                                 @RequestBody Long disciplineId) {
         long userId = ControllerUtils.getUserId(authentication);
@@ -42,6 +46,7 @@ public class FolderController {
     }
 
     @PostMapping
+    @ApiOperation("Create new folder")
     public ResponseEntity<?> addFolder(@RequestBody SaveFolderDto folderDto,
                                            Authentication authentication) {
         long userId = ControllerUtils.getUserId(authentication);
@@ -55,6 +60,7 @@ public class FolderController {
     }
 
     @PostMapping("/delete")
+    @ApiOperation("Delete folder by id")
     public ResponseEntity<?> deleteDiscipline(Authentication authentication,
                                               @RequestBody Long folderId) {
         long userId = ControllerUtils.getUserId(authentication);
