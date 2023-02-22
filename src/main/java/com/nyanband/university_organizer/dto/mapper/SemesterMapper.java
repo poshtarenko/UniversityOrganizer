@@ -5,7 +5,7 @@ import com.nyanband.university_organizer.entity.Semester;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = {EntityIdMapper.class})
 public interface SemesterMapper {
 
     SemesterMapper INSTANCE = Mappers.getMapper(SemesterMapper.class);

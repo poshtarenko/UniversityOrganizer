@@ -3,6 +3,7 @@ package com.nyanband.university_organizer.repository;
 import com.nyanband.university_organizer.entity.Course;
 import com.nyanband.university_organizer.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
@@ -12,6 +13,7 @@ public interface CourseRepository extends JpaRepository<Course, Long> {
 
     void deleteById(long courseId);
 
-    Boolean existsByIdAndUser(long courseId, User user);
+    @Query("select count(c) > 0 from Course c where c.id = :courseId and c.user.id = :userId")
+    Boolean courseBelongsToUser(long courseId, long userId);
 
 }

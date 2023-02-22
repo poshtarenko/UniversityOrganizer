@@ -28,4 +28,8 @@ public class Semester extends BaseEntity {
         this.number = number;
         this.course = course;
     }
+
+    public Semester(Long id) {
+        super(id);
+    }
 }

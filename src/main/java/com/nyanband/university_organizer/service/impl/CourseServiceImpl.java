@@ -1,6 +1,7 @@
 package com.nyanband.university_organizer.service.impl;
 
 import com.nyanband.university_organizer.dto.CourseDto;
+import com.nyanband.university_organizer.dto.SaveCourseDto;
 import com.nyanband.university_organizer.dto.mapper.CourseMapper;
 import com.nyanband.university_organizer.entity.Course;
 import com.nyanband.university_organizer.entity.Semester;
@@ -41,13 +42,12 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public boolean isCourseBelongsToUser(long courseId, long userId) {
-        User user = new User(userId);
-        return courseRepository.existsByIdAndUser(courseId, user);
+        return courseRepository.courseBelongsToUser(courseId, userId);
     }
 
     @Override
     @Transactional
-    public void save(CourseDto courseDto) {
+    public void save(SaveCourseDto courseDto) {
         Course course = courseRepository.save(courseMapper.toEntity(courseDto));
 
         Semester semester1 = new Semester(1, course);

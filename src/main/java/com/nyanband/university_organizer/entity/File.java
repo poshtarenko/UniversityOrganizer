@@ -26,4 +26,8 @@ public class File extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "folder_id")
     Folder folder;
+
+    public File(Long id) {
+        super(id);
+    }
 }

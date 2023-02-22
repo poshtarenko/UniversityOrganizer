@@ -22,4 +22,8 @@ public class Folder extends BaseEntity {
 
     @OneToMany(mappedBy = "folder", fetch = FetchType.LAZY)
     List<File> files;
+
+    public Folder(Long id) {
+        super(id);
+    }
 }

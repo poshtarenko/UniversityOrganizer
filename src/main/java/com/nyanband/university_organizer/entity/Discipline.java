@@ -22,4 +22,8 @@ public class Discipline extends BaseEntity {
 
     @OneToMany(mappedBy = "discipline", fetch = FetchType.LAZY)
     List<Folder> folders;
+
+    public Discipline(Long id) {
+        super(id);
+    }
 }

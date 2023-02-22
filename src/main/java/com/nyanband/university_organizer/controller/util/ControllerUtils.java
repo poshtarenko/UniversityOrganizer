@@ -10,9 +10,4 @@ public class ControllerUtils {
         return ((UserDetailsImpl) authentication.getPrincipal()).getId();
     }
 
-    public static ResponseEntity<MessageResponse> getOkResponse() {
-        return ResponseEntity
-                .ok()
-                .body(new MessageResponse("OK"));
-    }
 }
