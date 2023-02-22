@@ -4,7 +4,6 @@ import com.nyanband.university_organizer.controller.util.ControllerUtils;
 import com.nyanband.university_organizer.dto.CourseDto;
 import com.nyanband.university_organizer.dto.SaveCourseDto;
 import com.nyanband.university_organizer.exception.AccessDeniedException;
-import com.nyanband.university_organizer.security.pojo.MessageResponse;
 import com.nyanband.university_organizer.service.CourseService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -14,7 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -31,18 +29,17 @@ public class CourseController {
 
     @GetMapping
     @ApiOperation("Get all user courses")
-    public List<CourseDto> getMyCourses(Authentication authentication) {
-        long userId = ControllerUtils.getUserId(authentication);
+    public List<CourseDto> getMyCourses() {
+        long userId = ControllerUtils.getUserId();
         return courseService.getUserCourses(userId);
     }
 
     @PostMapping
     @ApiOperation("Create new course")
-    public ResponseEntity<?> addCourse(Authentication authentication,
-                                       @RequestBody Integer courseNumber) {
+    public ResponseEntity<?> addCourse(@RequestBody Integer courseNumber) {
         SaveCourseDto courseDto = new SaveCourseDto(
                 courseNumber,
-                ControllerUtils.getUserId(authentication)
+                ControllerUtils.getUserId()
         );
         courseService.save(courseDto);
         return new ResponseEntity<>(HttpStatus.OK);
@@ -50,9 +47,8 @@ public class CourseController {
 
     @PostMapping("/delete")
     @ApiOperation("Delete course by id")
-    public ResponseEntity<?> deleteCourse(Authentication authentication,
-                                          @RequestBody Long courseId) {
-        long userId = ControllerUtils.getUserId(authentication);
+    public ResponseEntity<?> deleteCourse(@RequestBody Long courseId) {
+        long userId = ControllerUtils.getUserId();
 
         if (courseService.isCourseBelongsToUser(courseId, userId)) {
             courseService.delete(courseId);

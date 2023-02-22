@@ -35,9 +35,8 @@ public class FolderController {
 
     @GetMapping
     @ApiOperation("Get all folders by discipline id")
-    public List<FolderDto> getDisciplineFolders(Authentication authentication,
-                                                @RequestBody Long disciplineId) {
-        long userId = ControllerUtils.getUserId(authentication);
+    public List<FolderDto> getDisciplineFolders(@RequestParam Long disciplineId) {
+        long userId = ControllerUtils.getUserId();
         if (disciplineService.isDisciplineBelongsToUser(disciplineId, userId)) {
             return folderService.getDisciplineFolders(disciplineId);
         } else {
@@ -47,9 +46,8 @@ public class FolderController {
 
     @PostMapping
     @ApiOperation("Create new folder")
-    public ResponseEntity<?> addFolder(@RequestBody SaveFolderDto folderDto,
-                                           Authentication authentication) {
-        long userId = ControllerUtils.getUserId(authentication);
+    public ResponseEntity<?> addFolder(@RequestBody SaveFolderDto folderDto) {
+        long userId = ControllerUtils.getUserId();
         long disciplineId = folderDto.getDisciplineId();
         if (disciplineService.isDisciplineBelongsToUser(disciplineId, userId)) {
             folderService.save(folderDto);
@@ -61,9 +59,8 @@ public class FolderController {
 
     @PostMapping("/delete")
     @ApiOperation("Delete folder by id")
-    public ResponseEntity<?> deleteDiscipline(Authentication authentication,
-                                              @RequestBody Long folderId) {
-        long userId = ControllerUtils.getUserId(authentication);
+    public ResponseEntity<?> deleteDiscipline(@RequestBody Long folderId) {
+        long userId = ControllerUtils.getUserId();
 
         if (folderService.isFolderBelongsToUser(folderId, userId)) {
             folderService.delete(folderId);

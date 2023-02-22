@@ -35,9 +35,8 @@ public class FileController {
 
     @GetMapping
     @ApiOperation("Get all files by folder id")
-    public List<FileDto> getFolderFiles(Authentication authentication,
-                                        @RequestBody Long folderId) {
-        long userId = ControllerUtils.getUserId(authentication);
+    public List<FileDto> getFolderFiles(@RequestParam Long folderId) {
+        long userId = ControllerUtils.getUserId();
         if (folderService.isFolderBelongsToUser(folderId, userId)) {
             return fileService.getFolderFiles(folderId);
         } else {
@@ -47,9 +46,8 @@ public class FileController {
 
     @PostMapping
     @ApiOperation("Create new file")
-    public ResponseEntity<?> addFile(@RequestBody SaveFileDto fileDto,
-                                           Authentication authentication) {
-        long userId = ControllerUtils.getUserId(authentication);
+    public ResponseEntity<?> addFile(@RequestBody SaveFileDto fileDto) {
+        long userId = ControllerUtils.getUserId();
         long folderId = fileDto.getFolderId();
         if (folderService.isFolderBelongsToUser(folderId, userId)) {
             fileService.save(fileDto);
@@ -61,9 +59,8 @@ public class FileController {
 
     @PostMapping("/delete")
     @ApiOperation("Delete file by id")
-    public ResponseEntity<?> deleteFile(Authentication authentication,
-                                              @RequestBody Long fileId) {
-        long userId = ControllerUtils.getUserId(authentication);
+    public ResponseEntity<?> deleteFile(@RequestBody Long fileId) {
+        long userId = ControllerUtils.getUserId();
 
         if (fileService.isFileBelongsToUser(fileId, userId)) {
             folderService.delete(fileId);

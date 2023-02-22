@@ -32,9 +32,8 @@ public class DisciplineController {
 
     @GetMapping
     @ApiOperation("Get all disciplines by semester id")
-    public List<DisciplineDto> getSemesterDisciplines(Authentication authentication,
-                                                @RequestBody Long semesterId) {
-        long userId = ControllerUtils.getUserId(authentication);
+    public List<DisciplineDto> getSemesterDisciplines(@RequestParam Long semesterId) {
+        long userId = ControllerUtils.getUserId();
         if (semesterService.isSemesterBelongsToUser(semesterId, userId)) {
             return disciplineService.getSemesterDisciplines(semesterId);
         } else {
@@ -44,9 +43,8 @@ public class DisciplineController {
 
     @PostMapping
     @ApiOperation("Create new discipline")
-    public ResponseEntity<?> addDiscipline(@RequestBody SaveDisciplineDto disciplineDto,
-                                           Authentication authentication) {
-        long userId = ControllerUtils.getUserId(authentication);
+    public ResponseEntity<?> addDiscipline(@RequestBody SaveDisciplineDto disciplineDto) {
+        long userId = ControllerUtils.getUserId();
         long semesterId = disciplineDto.getSemesterId();
         if (semesterService.isSemesterBelongsToUser(semesterId, userId)) {
             disciplineService.save(disciplineDto);
@@ -58,9 +56,8 @@ public class DisciplineController {
 
     @PostMapping("/delete")
     @ApiOperation("Delete discipline by id")
-    public ResponseEntity<?> deleteDiscipline(Authentication authentication,
-                                              @RequestBody Long disciplineId) {
-        long userId = ControllerUtils.getUserId(authentication);
+    public ResponseEntity<?> deleteDiscipline(@RequestBody Long disciplineId) {
+        long userId = ControllerUtils.getUserId();
 
         if (disciplineService.isDisciplineBelongsToUser(disciplineId, userId)) {
             disciplineService.delete(disciplineId);
