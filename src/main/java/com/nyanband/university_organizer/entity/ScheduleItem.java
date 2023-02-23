@@ -15,6 +15,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Table(name = "scheduleitem")
+@Entity
 public class ScheduleItem extends BaseEntity{
     @Column(name =  "lesson_num")
     Integer lesson_num;

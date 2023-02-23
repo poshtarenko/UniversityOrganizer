@@ -11,6 +11,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Setter
 @Getter
+@Entity
 @Table(name ="usersetting",
         uniqueConstraints = {@UniqueConstraint(columnNames = "user_id")})
 public class UserSetting extends BaseEntity {
