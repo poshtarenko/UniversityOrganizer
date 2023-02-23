@@ -11,7 +11,6 @@ import java.util.List;
 @AllArgsConstructor
 @Setter
 @Getter
-@Entity
 @Table(name ="Schedule",
         uniqueConstraints = {@UniqueConstraint(columnNames = "semester_id")})
 public class Schedule  extends BaseEntity{
