@@ -23,6 +23,9 @@ public class Discipline extends BaseEntity {
     @OneToMany(mappedBy = "discipline", fetch = FetchType.LAZY)
     List<Folder> folders;
 
+    @OneToMany(mappedBy = "discipline",fetch =  FetchType.LAZY)
+    List <ScheduleItem> scheduleItems;
+
     public Discipline(Long id) {
         super(id);
     }

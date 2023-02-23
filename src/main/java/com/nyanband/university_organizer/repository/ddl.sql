@@ -5,7 +5,6 @@ CREATE TABLE Users
     password varchar(128) NOT NULL
 );
 
-
 CREATE table Roles
 (
     id   BIGSERIAL PRIMARY KEY,
@@ -32,6 +31,7 @@ CREATE TABLE Semester
     num       int NOT NULL,
     course_id BIGINT REFERENCES Course(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
+
 
 CREATE TABLE Discipline
 (
@@ -71,9 +71,10 @@ CREATE TABLE UserSetting
 CREATE TABLE Schedule
 (
     id          BIGSERIAL PRIMARY KEY,
-    semester_id BIGINT REFERENCES semester(id) ON DELETE CASCADE ON UPDATE CASCADE,
-    user_id     BIGINT REFERENCES Users(id) ON DELETE CASCADE ON UPDATE CASCADE
+    semester_id BIGINT REFERENCES semester(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+
 
 CREATE TABLE ScheduleItem
 (
@@ -85,7 +86,19 @@ CREATE TABLE ScheduleItem
     lesson_type varchar(32) NOT NULL,
     weekday varchar(32) NOT NULL
 );
+SELECT * FROM Course;
+SELECT * FROM Discipline;
+SELECT * FROM Semester;
+SELECT * FROM Schedule;
+INSERT INTO Schedule (semester_id)
+VALUES(1);
+INSERT INTO ScheduleItem (schedule_id, lesson_num, discipline_id, week_type, lesson_type, weekday)
+VALUES (1,1,1,'NON_PAIR','LAB','TUESDAY');
 
+SELECT * FROM Schedule as s JOIN ScheduleItem SI on s.id = SI.schedule_id
+                            JOIN Semester as sem  on semester_id =  sem.id
+                            JOIN Course as c on sem.course_id = c.id
+                            JOIN Users U on c.user_id = U.id;
 
 INSERT
 INTO Users (email, password)

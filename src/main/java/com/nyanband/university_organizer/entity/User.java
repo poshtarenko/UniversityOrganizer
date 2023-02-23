@@ -31,6 +31,11 @@ public class User extends BaseEntity {
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     List<Course> courses;
 
+    @OneToOne(mappedBy =  "userSettings",fetch =  FetchType.LAZY)
+    UserSettings userSettings;
+
+
+
     public User(Long id) {
         super(id);
     }
