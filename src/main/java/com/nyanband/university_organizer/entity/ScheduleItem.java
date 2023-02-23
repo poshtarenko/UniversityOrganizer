@@ -15,13 +15,17 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Getter
 @Setter
+@Table(name = "scheduleitem")
 public class ScheduleItem extends BaseEntity{
-
+    @Column(name =  "lesson_num")
     Integer lesson_num;
+    @Column(name = "weekday")
     @Enumerated(EnumType.STRING)
     EWeekday weekday;
+    @Column(name = "lesson_type")
     @Enumerated(EnumType.STRING)
     ELessonType lessonType;
+    @Column(name = "week_type")
     @Enumerated(EnumType.STRING)
     EWeakType weakType;
 

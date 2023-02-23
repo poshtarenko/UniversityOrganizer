@@ -12,7 +12,7 @@ import java.util.List;
 @Setter
 @Getter
 @Entity
-@Table(name ="Schedule",
+@Table(name ="schedule",
         uniqueConstraints = {@UniqueConstraint(columnNames = "semester_id")})
 public class Schedule  extends BaseEntity{
     //owning side

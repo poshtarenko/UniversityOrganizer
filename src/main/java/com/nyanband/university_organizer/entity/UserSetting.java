@@ -12,12 +12,12 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Setter
 @Getter
-@Table(name ="UserSetting",
+@Table(name ="usersetting",
         uniqueConstraints = {@UniqueConstraint(columnNames = "user_id")})
-public class UserSettings extends BaseEntity {
+public class UserSetting extends BaseEntity {
 
 
-    @Column(name = "lesson_time")
+    @Column(name = "lesson_duration")
     Integer lesson_time;
 
     @Column(name = "break_time")
@@ -28,7 +28,7 @@ public class UserSettings extends BaseEntity {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     User user;
 
-    public UserSettings(Long id) {
+    public UserSetting(Long id) {
         super(id);
     }
 }
