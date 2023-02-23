@@ -1,6 +1,6 @@
 package com.nyanband.university_organizer.controller;
 
-import com.nyanband.university_organizer.entity.ERole;
+import com.nyanband.university_organizer.entity.enums.ERole;
 import com.nyanband.university_organizer.entity.Role;
 import com.nyanband.university_organizer.entity.User;
 import com.nyanband.university_organizer.repository.RoleRepository;

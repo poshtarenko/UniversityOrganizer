@@ -1,5 +1,6 @@
 package com.nyanband.university_organizer.entity;
 
+import com.nyanband.university_organizer.entity.enums.ERole;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
