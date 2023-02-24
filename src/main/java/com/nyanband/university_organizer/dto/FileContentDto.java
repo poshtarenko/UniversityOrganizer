@@ -5,9 +5,8 @@ import lombok.Value;
 import java.io.InputStream;
 
 @Value
-public class SaveFileDto {
+public class FileContentDto {
     String name;
-    Long folderId;
     InputStream fileContent;
     String mimeType;
 }

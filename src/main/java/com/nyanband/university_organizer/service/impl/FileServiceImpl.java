@@ -1,5 +1,9 @@
 package com.nyanband.university_organizer.service.impl;
 
+import com.nyanband.university_organizer.cloud.CloudStorage;
+import com.nyanband.university_organizer.cloud.CloudStorageImpl;
+import com.nyanband.university_organizer.config.GoogleDriveConfig;
+import com.nyanband.university_organizer.dto.FileContentDto;
 import com.nyanband.university_organizer.dto.FileDto;
 import com.nyanband.university_organizer.dto.SaveFileDto;
 import com.nyanband.university_organizer.dto.mapper.FileMapper;
@@ -19,11 +23,13 @@ public class FileServiceImpl implements FileService {
 
     FileRepository fileRepository;
     FileMapper fileMapper;
+    CloudStorage cloudStorage;
 
     @Autowired
-    public FileServiceImpl(FileRepository fileRepository, FileMapper fileMapper) {
+    public FileServiceImpl(FileRepository fileRepository, FileMapper fileMapper, CloudStorage cloudStorage) {
         this.fileRepository = fileRepository;
         this.fileMapper = fileMapper;
+        this.cloudStorage = cloudStorage;
     }
 
     @Override
@@ -36,6 +42,18 @@ public class FileServiceImpl implements FileService {
 
     @Override
     @Transactional
+    public FileContentDto getFileContent(long fileId) {
+        File file = fileRepository.findById(fileId).orElseThrow(RuntimeException::new);
+
+        return new FileContentDto(
+                file.getName(),
+                cloudStorage.getFile(file.getPath()),
+                file.getMimeType()
+        );
+    }
+
+    @Override
+    @Transactional
     public boolean isFileBelongsToUser(long fileId, long userId) {
         return fileRepository.fileBelongsToUser(fileId, userId);
     }
@@ -43,8 +61,15 @@ public class FileServiceImpl implements FileService {
     @Override
     @Transactional
     public void save(SaveFileDto fileDto) {
+        String filePath = cloudStorage.saveFile(
+                fileDto.getName(),
+                fileDto.getFileContent(),
+                fileDto.getMimeType()
+        );
+
         File file = fileMapper.toEntity(fileDto);
         file.setUploadTime(LocalDateTime.now());
+        file.setPath(filePath);
         fileRepository.save(file);
     }
 

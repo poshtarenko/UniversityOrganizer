@@ -1,22 +1,27 @@
 package com.nyanband.university_organizer.controller;
 
 import com.nyanband.university_organizer.controller.util.ControllerUtils;
+import com.nyanband.university_organizer.dto.FileContentDto;
 import com.nyanband.university_organizer.dto.FileDto;
-import com.nyanband.university_organizer.dto.FolderDto;
 import com.nyanband.university_organizer.dto.SaveFileDto;
-import com.nyanband.university_organizer.dto.SaveFolderDto;
 import com.nyanband.university_organizer.exception.AccessDeniedException;
-import com.nyanband.university_organizer.service.DisciplineService;
 import com.nyanband.university_organizer.service.FileService;
 import com.nyanband.university_organizer.service.FolderService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.tika.Tika;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 @RestController
@@ -45,13 +50,44 @@ public class FileController {
         }
     }
 
+    @GetMapping("/{fileId}")
+    @ApiOperation("Get all files by folder id")
+    public ResponseEntity<InputStreamResource> getFileContent(@PathVariable Long fileId) {
+        long userId = ControllerUtils.getUserId();
+        if (fileService.isFileBelongsToUser(fileId, userId)) {
+            FileContentDto fileContent = fileService.getFileContent(fileId);
+            return ResponseEntity.ok()
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=" + fileContent.getName())
+                    .contentType(MediaType.parseMediaType(fileContent.getMimeType()))
+                    .body(new InputStreamResource(fileContent.getFileContent()));
+        } else {
+            throw new AccessDeniedException("File does not exist or user dont have access on it");
+        }
+    }
+
     @PostMapping
     @ApiOperation("Create new file")
-    public ResponseEntity<?> addFile(@RequestBody SaveFileDto fileDto) {
+    public ResponseEntity<?> addFile(@RequestParam("folderId") Long folderId,
+                                     @RequestPart("file") MultipartFile file) {
         long userId = ControllerUtils.getUserId();
-        long folderId = fileDto.getFolderId();
+
         if (folderService.isFolderBelongsToUser(folderId, userId)) {
-            fileService.save(fileDto);
+            try {
+                InputStream fileContent = file.getInputStream();
+                Tika tika = new Tika();
+                String mimeType = tika.detect(file.getInputStream());
+
+                SaveFileDto fileDto = new SaveFileDto(
+                        file.getOriginalFilename(),
+                        folderId,
+                        fileContent,
+                        mimeType
+                );
+
+                fileService.save(fileDto);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
             return new ResponseEntity<>(HttpStatus.OK);
         } else {
             throw new AccessDeniedException("Folder does not exist or user dont have access on it");
