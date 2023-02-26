@@ -9,10 +9,9 @@ import com.nyanband.university_organizer.security.jwt.JwtUtils;
 import com.nyanband.university_organizer.security.pojo.JwtResponse;
 import com.nyanband.university_organizer.security.pojo.LoginRequest;
 import com.nyanband.university_organizer.security.pojo.MessageResponse;
-import com.nyanband.university_organizer.security.pojo.SignupRequest;
+import com.nyanband.university_organizer.security.pojo.SignUpRequest;
 import com.nyanband.university_organizer.security.userdetails.UserDetailsImpl;
 import com.nyanband.university_organizer.service.UserService;
-import com.nyanband.university_organizer.service.impl.UserServiceImpl;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,7 +83,7 @@ public class AuthController {
 
     @PostMapping("/sign_up")
     @ApiOperation("Registration")
-    public ResponseEntity<?> registerUser(@RequestBody SignupRequest signupRequest) {
+    public ResponseEntity<?> registerUser(@RequestBody SignUpRequest signupRequest) {
 
         if (userRepository.existsByEmail(signupRequest.getEmail())) {
             return ResponseEntity

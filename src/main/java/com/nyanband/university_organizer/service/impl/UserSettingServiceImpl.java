@@ -33,8 +33,8 @@ public class UserSettingServiceImpl implements UserSettingService {
     @Override
     public void update(UpdateUserSettingDto userSettingDto) {
         UserSetting userSetting = userSettingRepository.getUserSettingByUserId(userSettingDto.getUserId());
-        userSetting.setBreak_time(userSettingDto.getBreak_time());
-        userSetting.setLesson_time(userSettingDto.getLessonDuration());
+        userSetting.setBreakTime(userSettingDto.getBreak_time());
+        userSetting.setLessonTime(userSettingDto.getLessonDuration());
         userSettingRepository.save(userSetting);
     }
 

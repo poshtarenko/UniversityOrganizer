@@ -18,10 +18,10 @@ public class UserSetting extends BaseEntity {
 
 
     @Column(name = "lesson_duration")
-    Integer lesson_time;
+    Integer lessonTime;
 
     @Column(name = "break_time")
-    Integer break_time;
+    Integer breakTime;
 
 
     @OneToOne
