@@ -1,6 +1,7 @@
 package com.nyanband.university_organizer.service.impl;
 
 import com.nyanband.university_organizer.dto.SaveUserSettingDto;
+import com.nyanband.university_organizer.dto.UpdateUserSettingDto;
 import com.nyanband.university_organizer.dto.UserSettingDto;
 import com.nyanband.university_organizer.dto.mapper.UserSettingMapper;
 import com.nyanband.university_organizer.entity.User;
@@ -31,19 +32,15 @@ public class UserSettingImpl implements UserSettingService {
 
     }
 
-//    User userFromDb = userRepository.findById(u.getid());
-//    // crush the variables of the object found
-//    userFromDb.setFirstname("john");
-//    userFromDb.setLastname("dew");
-//    userFromDb.setAge(16);
-//    userRepository.save(userFromDb);
     @Transactional
     @Override
-    public void update(SaveUserSettingDto saveUserSettingDto) {
-        //Optional<User> user = userRepository.findById(Long.valueOf(saveUserSettingDto.getUserId()));
-
-        UserSetting userSetting = userSettingRepository.save(userSettingMapper.toEntity(saveUserSettingDto));
+    public void update(UpdateUserSettingDto userSettingDto) {
+        UserSetting userSetting = userSettingRepository.getUserSettingByUserId(userSettingDto.getUserId());
+        userSetting.setBreak_time(userSettingDto.getBreak_time());
+        userSetting.setLesson_time(userSettingDto.getLessonDuration());
+        userSettingRepository.save(userSetting);
     }
+
     @Transactional
     @Override
     public boolean isSettingBelongsToUser(long userId,long settingId) {

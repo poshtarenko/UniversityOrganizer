@@ -39,8 +39,7 @@ public class AuthController {
     UserRepository userRepository;
     RoleRepository roleRepository;
     PasswordEncoder passwordEncoder;
-
-    UserServiceImpl userService;
+    UserService userService;
     JwtUtils jwtUtils;
 
     @Autowired
@@ -48,7 +47,7 @@ public class AuthController {
                           UserRepository userRespository,
                           RoleRepository roleRepository,
                           PasswordEncoder passwordEncoder,
-                          UserServiceImpl userService,
+                          UserService userService,
                           JwtUtils jwtUtils) {
         this.authenticationManager = authenticationManager;
         this.userRepository = userRespository;
@@ -137,7 +136,6 @@ public class AuthController {
         }
         user.setRoles(roles);
         userService.save(user);
-        //userRepository.save(user);
         return ResponseEntity.ok(new MessageResponse("User CREATED"));
     }
 }

@@ -16,6 +16,7 @@ public class UserServiceImpl  implements UserService {
 
     UserSettingRepository userSettingRepository;
     UserRepository userRepository;
+
     @Autowired
     public UserServiceImpl(UserRepository userRepository,UserSettingRepository userSettingRepository) {
         this.userRepository = userRepository;
@@ -26,7 +27,7 @@ public class UserServiceImpl  implements UserService {
     @Transactional
     public void save(User user) {
         userRepository.save(user);
-        UserSetting  userSetting = new UserSetting(0,0,user);
+        UserSetting userSetting = new UserSetting(0,0,user);
         userSettingRepository.save(userSetting);
     }
 }
