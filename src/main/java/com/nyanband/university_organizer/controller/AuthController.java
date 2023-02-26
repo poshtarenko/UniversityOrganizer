@@ -11,6 +11,8 @@ import com.nyanband.university_organizer.security.pojo.LoginRequest;
 import com.nyanband.university_organizer.security.pojo.MessageResponse;
 import com.nyanband.university_organizer.security.pojo.SignupRequest;
 import com.nyanband.university_organizer.security.userdetails.UserDetailsImpl;
+import com.nyanband.university_organizer.service.UserService;
+import com.nyanband.university_organizer.service.impl.UserServiceImpl;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +39,8 @@ public class AuthController {
     UserRepository userRepository;
     RoleRepository roleRepository;
     PasswordEncoder passwordEncoder;
+
+    UserServiceImpl userService;
     JwtUtils jwtUtils;
 
     @Autowired
@@ -44,12 +48,14 @@ public class AuthController {
                           UserRepository userRespository,
                           RoleRepository roleRepository,
                           PasswordEncoder passwordEncoder,
+                          UserServiceImpl userService,
                           JwtUtils jwtUtils) {
         this.authenticationManager = authenticationManager;
         this.userRepository = userRespository;
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
         this.jwtUtils = jwtUtils;
+        this.userService = userService;
     }
 
     @PostMapping("/sign_in")
@@ -130,7 +136,8 @@ public class AuthController {
             });
         }
         user.setRoles(roles);
-        userRepository.save(user);
+        userService.save(user);
+        //userRepository.save(user);
         return ResponseEntity.ok(new MessageResponse("User CREATED"));
     }
 }
