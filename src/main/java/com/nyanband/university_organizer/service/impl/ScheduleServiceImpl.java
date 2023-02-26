@@ -5,7 +5,8 @@ import com.nyanband.university_organizer.service.ScheduleItemService;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ScheduleItemImpl  implements ScheduleItemService {
+public class ScheduleServiceImpl implements ScheduleItemService {
+
     @Override
     public void save(ScheduleDto ScheduleDto) {
 
