@@ -36,7 +36,7 @@ public class FolderController {
 
     @GetMapping
     @ApiOperation("Get all folders by discipline id")
-    public List<FolderDto> getDisciplineFolders(@RequestParam Long disciplineId) {
+    public List<FolderDto> getDisciplineFolders(@RequestParam("disciplineId") Long disciplineId) {
         long userId = ControllerUtils.getUserId();
         if (disciplineService.isDisciplineBelongsToUser(disciplineId, userId)) {
             return folderService.getDisciplineFolders(disciplineId);
@@ -60,7 +60,7 @@ public class FolderController {
 
     @PostMapping("/delete")
     @ApiOperation("Delete folder by id")
-    public ResponseEntity<?> deleteDiscipline(@RequestBody Long folderId) {
+    public ResponseEntity<?> deleteDiscipline(@RequestParam("folderId") Long folderId) {
         long userId = ControllerUtils.getUserId();
 
         if (folderService.isFolderBelongsToUser(folderId, userId)) {

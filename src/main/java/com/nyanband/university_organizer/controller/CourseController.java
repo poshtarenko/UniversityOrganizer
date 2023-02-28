@@ -37,13 +37,13 @@ public class CourseController {
 
     @PostMapping
     @ApiOperation("Create new course")
-    public ResponseEntity<?> addCourse(@RequestParam("courseNumber") Integer courseNumber) {
+    public CourseDto addCourse(@RequestParam("courseNumber") Integer courseNumber) {
         SaveCourseDto courseDto = new SaveCourseDto(
                 courseNumber,
                 ControllerUtils.getUserId()
         );
         courseService.save(courseDto);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return courseService.save(courseDto);
     }
 
     @PostMapping("/delete")

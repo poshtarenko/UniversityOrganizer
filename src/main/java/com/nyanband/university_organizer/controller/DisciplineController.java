@@ -33,7 +33,7 @@ public class DisciplineController {
 
     @GetMapping
     @ApiOperation("Get all disciplines by semester id")
-    public List<DisciplineDto> getSemesterDisciplines(@RequestParam Long semesterId) {
+    public List<DisciplineDto> getSemesterDisciplines(@RequestParam("semesterId") Long semesterId) {
         long userId = ControllerUtils.getUserId();
         if (semesterService.isSemesterBelongsToUser(semesterId, userId)) {
             return disciplineService.getSemesterDisciplines(semesterId);
@@ -57,7 +57,7 @@ public class DisciplineController {
 
     @PostMapping("/delete")
     @ApiOperation("Delete discipline by id")
-    public ResponseEntity<?> deleteDiscipline(@RequestBody Long disciplineId) {
+    public ResponseEntity<?> deleteDiscipline(@RequestParam("disciplineId") Long disciplineId) {
         long userId = ControllerUtils.getUserId();
 
         if (disciplineService.isDisciplineBelongsToUser(disciplineId, userId)) {

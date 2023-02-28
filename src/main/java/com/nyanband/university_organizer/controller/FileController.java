@@ -41,7 +41,7 @@ public class FileController {
 
     @GetMapping
     @ApiOperation("Get all files by folder id")
-    public List<FileDto> getFolderFiles(@RequestParam Long folderId) {
+    public List<FileDto> getFolderFiles(@RequestParam("folderId") Long folderId) {
         long userId = ControllerUtils.getUserId();
         if (folderService.isFolderBelongsToUser(folderId, userId)) {
             return fileService.getFolderFiles(folderId);

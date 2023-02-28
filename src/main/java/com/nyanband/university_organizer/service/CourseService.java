@@ -11,7 +11,7 @@ public interface CourseService {
 
     boolean isCourseBelongsToUser(long courseId, long userId);
 
-    void save(SaveCourseDto courseDto);
+    CourseDto save(SaveCourseDto courseDto);
 
     void delete(long courseId);
 }
