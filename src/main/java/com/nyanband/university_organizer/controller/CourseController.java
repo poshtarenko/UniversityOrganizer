@@ -37,7 +37,7 @@ public class CourseController {
 
     @PostMapping
     @ApiOperation("Create new course")
-    public ResponseEntity<?> addCourse(@RequestBody Integer courseNumber) {
+    public ResponseEntity<?> addCourse(@RequestParam("courseNumber") Integer courseNumber) {
         SaveCourseDto courseDto = new SaveCourseDto(
                 courseNumber,
                 ControllerUtils.getUserId()
@@ -48,7 +48,7 @@ public class CourseController {
 
     @PostMapping("/delete")
     @ApiOperation("Delete course by id")
-    public ResponseEntity<?> deleteCourse(@RequestBody Long courseId) {
+    public ResponseEntity<?> deleteCourse(@RequestParam("courseId") Long courseId) {
         long userId = ControllerUtils.getUserId();
 
         if (courseService.isCourseBelongsToUser(courseId, userId)) {
