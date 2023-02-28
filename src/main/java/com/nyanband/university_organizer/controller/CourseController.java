@@ -42,7 +42,6 @@ public class CourseController {
                 courseNumber,
                 ControllerUtils.getUserId()
         );
-        courseService.save(courseDto);
         return courseService.save(courseDto);
     }
 
