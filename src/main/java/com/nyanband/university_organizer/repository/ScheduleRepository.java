@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-
+@Repository
 public interface ScheduleRepository  extends JpaRepository<Schedule, Long> {
     @Query("SELECT s  FROM Schedule s  WHERE  s.semester.course.user.id =:userId")
     List<Schedule> getSchedulesByUserId(long userId);
