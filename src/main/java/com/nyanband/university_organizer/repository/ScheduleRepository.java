@@ -13,6 +13,8 @@ import java.util.List;
 public interface ScheduleRepository  extends JpaRepository<Schedule, Long> {
     @Query("SELECT s  FROM Schedule s  WHERE  s.semester.course.user.id =:userId")
     List<Schedule> getSchedulesByUserId(long userId);
+    @Query("SELECT COUNT(s) > 0  FROM Schedule  s WHERE s.id =:scheduleId and s.semester.course.user.id =:userId")
+    Boolean isScheduleBelongsToUser(long userId,long scheduleId);
 
 
 }
