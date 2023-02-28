@@ -7,14 +7,14 @@ import com.nyanband.university_organizer.repository.RoleRepository;
 import com.nyanband.university_organizer.repository.UserRepository;
 import com.nyanband.university_organizer.security.jwt.JwtUtils;
 import com.nyanband.university_organizer.security.pojo.JwtResponse;
-import com.nyanband.university_organizer.security.pojo.LoginRequest;
+import com.nyanband.university_organizer.security.pojo.AuthRequest;
 import com.nyanband.university_organizer.security.pojo.MessageResponse;
-import com.nyanband.university_organizer.security.pojo.SignUpRequest;
 import com.nyanband.university_organizer.security.userdetails.UserDetailsImpl;
 import com.nyanband.university_organizer.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -22,10 +22,13 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.validation.Valid;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @RestController
@@ -58,12 +61,12 @@ public class AuthController {
 
     @PostMapping("/sign_in")
     @ApiOperation("Authentication")
-    public ResponseEntity<?> authUser(@RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<?> authUser(@Valid @RequestBody AuthRequest authRequest) {
 
         Authentication authentication = authenticationManager
                 .authenticate(new UsernamePasswordAuthenticationToken(
-                        loginRequest.getEmail(),
-                        loginRequest.getPassword()));
+                        authRequest.getEmail(),
+                        authRequest.getPassword()));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtUtils.generateJwtToken(authentication);
@@ -83,13 +86,7 @@ public class AuthController {
 
     @PostMapping("/sign_up")
     @ApiOperation("Registration")
-    public ResponseEntity<?> registerUser(@RequestBody SignUpRequest signupRequest) {
-
-        if (userRepository.existsByEmail(signupRequest.getEmail())) {
-            return ResponseEntity
-                    .badRequest()
-                    .body(new MessageResponse("Error: Username is exist"));
-        }
+    public ResponseEntity<?> registerUser(@Valid @RequestBody AuthRequest signupRequest) {
 
         if (userRepository.existsByEmail(signupRequest.getEmail())) {
             return ResponseEntity
@@ -97,43 +94,11 @@ public class AuthController {
                     .body(new MessageResponse("Error: Email is exist"));
         }
 
-        User user = new User(signupRequest.getEmail(), passwordEncoder.encode(signupRequest.getPassword()));
-
-        List<String> reqRoles = signupRequest.getRoles();
-        List<Role> roles = new ArrayList<>();
-
-        if (reqRoles == null) {
-            Role userRole = roleRepository
-                    .findByName(ERole.USER)
-                    .orElseThrow(() -> new RuntimeException("Error, Role USER is not found"));
-            roles.add(userRole);
-        } else {
-            reqRoles.forEach(r -> {
-                switch (r) {
-                    case "admin":
-                        Role adminRole = roleRepository
-                                .findByName(ERole.ADMIN)
-                                .orElseThrow(() -> new RuntimeException("Error, Role ADMIN is not found"));
-                        roles.add(adminRole);
-
-                        break;
-                    case "mod":
-                        Role modRole = roleRepository
-                                .findByName(ERole.MODER)
-                                .orElseThrow(() -> new RuntimeException("Error, Role MODERATOR is not found"));
-                        roles.add(modRole);
-
-                        break;
-
-                    default:
-                        Role userRole = roleRepository
-                                .findByName(ERole.USER)
-                                .orElseThrow(() -> new RuntimeException("Error, Role USER is not found"));
-                        roles.add(userRole);
-                }
-            });
-        }
-        user.setRoles(roles);
+        User user = new User(
+                signupRequest.getEmail(),
+                passwordEncoder.encode(signupRequest.getPassword())
+        );
+        user.setRoles(Collections.singletonList(new Role(ERole.USER)));
         userService.save(user);
         return ResponseEntity.ok(new MessageResponse("User CREATED"));
     }

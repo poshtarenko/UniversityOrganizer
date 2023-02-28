@@ -2,9 +2,10 @@ package com.nyanband.university_organizer.dto;
 
 import lombok.Value;
 
-import java.util.List;
+import javax.validation.constraints.Positive;
+
 @Value
 public class SaveScheduleDto {
+    @Positive(message = "Semester id must be positive")
     Long semesterId;
-//    List<ScheduleItemDto> scheduleItemList;
 }

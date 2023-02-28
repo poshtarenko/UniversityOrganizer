@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -50,7 +51,7 @@ public class DisciplineServiceImpl implements DisciplineService {
 
     @Override
     @Transactional
-    public DisciplineDto save(SaveDisciplineDto saveDisciplineDto) {
+    public DisciplineDto save(@Valid SaveDisciplineDto saveDisciplineDto) {
         Discipline discipline = disciplineMapper.toEntity(saveDisciplineDto);
         DisciplineDto disciplineDto = disciplineMapper.toDto(discipline);
         disciplineRepository.save(discipline);

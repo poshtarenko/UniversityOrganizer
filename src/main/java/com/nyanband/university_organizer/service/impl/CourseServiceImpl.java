@@ -12,11 +12,14 @@ import com.nyanband.university_organizer.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Validated
 public class CourseServiceImpl implements CourseService {
 
     CourseRepository courseRepository;
@@ -47,7 +50,7 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     @Transactional
-    public CourseDto save(SaveCourseDto saveCourseDto) {
+    public CourseDto save(@Valid SaveCourseDto saveCourseDto) {
         Course course = courseRepository.save(courseMapper.toEntity(saveCourseDto));
 
         Semester semester1 = new Semester(1, course);

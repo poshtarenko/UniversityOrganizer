@@ -29,15 +29,19 @@ public class EntityIdMapper {
     public File toFile(Long id) {
         return new File(id);
     }
-    public UserSetting toUserSetting(Long id){
-        return  new UserSetting(id);
+
+    public UserSetting toUserSetting(Long id) {
+        return new UserSetting(id);
     }
-    public Schedule toSchedule(Long id){
+
+    public Schedule toSchedule(Long id) {
         return new Schedule(id);
     }
-    public ScheduleItem toScheduleItem(Long id){
-        return  new ScheduleItem(id);
+
+    public ScheduleItem toScheduleItem(Long id) {
+        return new ScheduleItem(id);
     }
+
     public Long toIdEntity(BaseEntity entity) {
         return entity.getId();
     }

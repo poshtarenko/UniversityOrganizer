@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -60,7 +61,7 @@ public class FileServiceImpl implements FileService {
 
     @Override
     @Transactional
-    public FileDto save(SaveFileDto saveFileDto) {
+    public FileDto save(@Valid SaveFileDto saveFileDto) {
         String filePath = cloudStorage.saveFile(
                 saveFileDto.getName(),
                 saveFileDto.getFileContent(),

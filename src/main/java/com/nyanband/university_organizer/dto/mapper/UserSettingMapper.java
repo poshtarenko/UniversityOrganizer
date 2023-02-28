@@ -7,7 +7,7 @@ import com.nyanband.university_organizer.entity.UserSetting;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-@Mapper(componentModel = "spring",uses = {EntityIdMapper.class})
+@Mapper(componentModel = "spring", uses = {EntityIdMapper.class})
 public interface UserSettingMapper {
 
     UserSetting toEntity(SaveUserSettingDto userSettingDto);
@@ -16,7 +16,7 @@ public interface UserSettingMapper {
     UserSetting toEntity(UpdateUserSettingDto userSettingDto);
 
     @Mapping(source = "user", target = "userId")
-    UserSettingDto toDto (UserSetting userSetting);
+    UserSettingDto toDto(UserSetting userSetting);
 
 
 }

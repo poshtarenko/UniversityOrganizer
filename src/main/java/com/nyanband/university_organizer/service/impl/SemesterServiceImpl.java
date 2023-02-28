@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.validation.Valid;
+
 @Service
 public class SemesterServiceImpl implements SemesterService {
 
@@ -28,8 +30,8 @@ public class SemesterServiceImpl implements SemesterService {
 
     @Override
     @Transactional
-    public SemesterDto save(SemesterDto semesterDto) {
-            return  semesterDto;
+    public SemesterDto save(@Valid SemesterDto semesterDto) {
+            return null;
     }
 
     @Override

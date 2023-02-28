@@ -3,6 +3,7 @@ package com.nyanband.university_organizer.service;
 import com.nyanband.university_organizer.dto.CourseDto;
 import com.nyanband.university_organizer.dto.SaveCourseDto;
 
+import javax.validation.Valid;
 import java.util.List;
 
 public interface CourseService {
@@ -11,7 +12,7 @@ public interface CourseService {
 
     boolean isCourseBelongsToUser(long courseId, long userId);
 
-    CourseDto save(SaveCourseDto courseDto);
+    CourseDto save(@Valid SaveCourseDto courseDto);
 
     void delete(long courseId);
 }

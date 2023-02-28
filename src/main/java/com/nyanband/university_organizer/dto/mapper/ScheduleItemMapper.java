@@ -9,6 +9,7 @@ import org.mapstruct.Mapper;
 public interface ScheduleItemMapper {
 
     ScheduleItem toEntity(SaveScheduleItemDto scheduleItemDto);
+
     ScheduleItemDto toDto(ScheduleItem scheduleItem);
 
 }
