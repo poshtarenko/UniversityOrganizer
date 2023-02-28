@@ -47,8 +47,8 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     @Transactional
-    public CourseDto save(SaveCourseDto courseDto) {
-        Course course = courseRepository.save(courseMapper.toEntity(courseDto));
+    public CourseDto save(SaveCourseDto saveCourseDto) {
+        Course course = courseRepository.save(courseMapper.toEntity(saveCourseDto));
 
         Semester semester1 = new Semester(1, course);
         Semester semester2 = new Semester(2, course);

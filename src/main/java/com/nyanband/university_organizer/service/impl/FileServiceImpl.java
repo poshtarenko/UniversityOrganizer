@@ -60,17 +60,19 @@ public class FileServiceImpl implements FileService {
 
     @Override
     @Transactional
-    public void save(SaveFileDto fileDto) {
+    public FileDto save(SaveFileDto saveFileDto) {
         String filePath = cloudStorage.saveFile(
-                fileDto.getName(),
-                fileDto.getFileContent(),
-                fileDto.getMimeType()
+                saveFileDto.getName(),
+                saveFileDto.getFileContent(),
+                saveFileDto.getMimeType()
         );
 
-        File file = fileMapper.toEntity(fileDto);
+        File file = fileMapper.toEntity(saveFileDto);
         file.setUploadTime(LocalDateTime.now());
         file.setPath(filePath);
+        FileDto fileDto = fileMapper.toDto(file);
         fileRepository.save(file);
+        return  fileDto;
     }
 
     @Override

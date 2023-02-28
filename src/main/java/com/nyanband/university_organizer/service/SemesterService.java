@@ -6,7 +6,7 @@ public interface SemesterService {
 
     boolean isSemesterBelongsToUser(long semesterId, long userId);
 
-    void save(SemesterDto folderDto);
+    SemesterDto save(SemesterDto folderDto);
 
     void delete(long semesterId);
 }

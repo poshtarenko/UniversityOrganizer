@@ -11,7 +11,7 @@ public interface DisciplineService {
 
     boolean isDisciplineBelongsToUser(long disciplineId, long userId);
 
-    void save(SaveDisciplineDto disciplineDto);
+    DisciplineDto save(SaveDisciplineDto disciplineDto);
 
-    void delete(long disciplineId);
+    void  delete(long disciplineId);
 }

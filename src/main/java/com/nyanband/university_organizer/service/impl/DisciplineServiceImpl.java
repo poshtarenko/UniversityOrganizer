@@ -6,6 +6,7 @@ import com.nyanband.university_organizer.dto.SaveDisciplineDto;
 import com.nyanband.university_organizer.dto.mapper.CourseMapper;
 import com.nyanband.university_organizer.dto.mapper.DisciplineMapper;
 import com.nyanband.university_organizer.entity.Course;
+import com.nyanband.university_organizer.entity.Discipline;
 import com.nyanband.university_organizer.entity.Folder;
 import com.nyanband.university_organizer.entity.Semester;
 import com.nyanband.university_organizer.repository.CourseRepository;
@@ -49,8 +50,11 @@ public class DisciplineServiceImpl implements DisciplineService {
 
     @Override
     @Transactional
-    public void save(SaveDisciplineDto disciplineDto) {
-        disciplineRepository.save(disciplineMapper.toEntity(disciplineDto));
+    public DisciplineDto save(SaveDisciplineDto saveDisciplineDto) {
+        Discipline discipline = disciplineMapper.toEntity(saveDisciplineDto);
+        DisciplineDto disciplineDto = disciplineMapper.toDto(discipline);
+        disciplineRepository.save(discipline);
+        return  disciplineDto;
     }
 
     @Override

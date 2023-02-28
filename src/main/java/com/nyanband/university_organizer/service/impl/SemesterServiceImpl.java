@@ -1,6 +1,7 @@
 package com.nyanband.university_organizer.service.impl;
 
 import com.nyanband.university_organizer.dto.SemesterDto;
+import com.nyanband.university_organizer.dto.mapper.SemesterMapper;
 import com.nyanband.university_organizer.repository.SemesterRepository;
 import com.nyanband.university_organizer.service.SemesterService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,10 +12,12 @@ import org.springframework.transaction.annotation.Transactional;
 public class SemesterServiceImpl implements SemesterService {
 
     SemesterRepository semesterRepository;
+    SemesterMapper semesterMapper;
 
     @Autowired
-    public SemesterServiceImpl(SemesterRepository semesterRepository) {
+    public SemesterServiceImpl(SemesterRepository semesterRepository, SemesterMapper semesterMapper) {
         this.semesterRepository = semesterRepository;
+        this.semesterMapper = semesterMapper;
     }
 
     @Override
@@ -25,13 +28,13 @@ public class SemesterServiceImpl implements SemesterService {
 
     @Override
     @Transactional
-    public void save(SemesterDto semesterDto) {
-
+    public SemesterDto save(SemesterDto semesterDto) {
+            return  semesterDto;
     }
 
     @Override
     @Transactional
     public void delete(long semesterId) {
-
+        semesterRepository.deleteById(semesterId);
     }
 }

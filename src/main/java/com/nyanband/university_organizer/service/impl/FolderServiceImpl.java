@@ -3,6 +3,7 @@ package com.nyanband.university_organizer.service.impl;
 import com.nyanband.university_organizer.dto.FolderDto;
 import com.nyanband.university_organizer.dto.SaveFolderDto;
 import com.nyanband.university_organizer.dto.mapper.FolderMapper;
+import com.nyanband.university_organizer.entity.Folder;
 import com.nyanband.university_organizer.repository.FolderRepository;
 import com.nyanband.university_organizer.service.FolderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,8 +40,11 @@ public class FolderServiceImpl implements FolderService {
 
     @Override
     @Transactional
-    public void save(SaveFolderDto folderDto) {
-        folderRepository.save(folderMapper.toEntity(folderDto));
+    public FolderDto save(SaveFolderDto saveFolderDto) {
+        Folder folder =  folderMapper.toEntity(saveFolderDto);
+        FolderDto folderDto = folderMapper.toDto(folder);
+        folderRepository.save(folder);
+        return folderDto;
     }
 
     @Override

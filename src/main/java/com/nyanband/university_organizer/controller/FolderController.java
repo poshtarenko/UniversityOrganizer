@@ -47,12 +47,12 @@ public class FolderController {
 
     @PostMapping
     @ApiOperation("Create new folder")
-    public ResponseEntity<?> addFolder(@RequestBody SaveFolderDto folderDto) {
+    public FolderDto addFolder(@RequestBody SaveFolderDto folderDto) {
         long userId = ControllerUtils.getUserId();
         long disciplineId = folderDto.getDisciplineId();
         if (disciplineService.isDisciplineBelongsToUser(disciplineId, userId)) {
-            folderService.save(folderDto);
-            return new ResponseEntity<>(HttpStatus.OK);
+
+            return folderService.save(folderDto);
         } else {
             throw new AccessDeniedException("Discipline does not exist or user dont have access on it");
         }

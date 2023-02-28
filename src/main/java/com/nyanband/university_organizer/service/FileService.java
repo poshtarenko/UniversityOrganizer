@@ -14,7 +14,7 @@ public interface FileService {
 
     boolean isFileBelongsToUser(long fileId, long userId);
 
-    void save(SaveFileDto fileDto);
+    FileDto save(SaveFileDto fileDto);
 
     void delete(long fileId);
 }

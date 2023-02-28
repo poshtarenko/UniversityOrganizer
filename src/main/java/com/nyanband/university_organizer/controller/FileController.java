@@ -67,8 +67,9 @@ public class FileController {
 
     @PostMapping
     @ApiOperation("Create new file")
-    public ResponseEntity<?> addFile(@RequestParam("folderId") Long folderId,
+    public FileDto addFile(@RequestParam("folderId") Long folderId,
                                      @RequestPart("file") MultipartFile file) {
+        FileDto fileDto;
         long userId = ControllerUtils.getUserId();
 
         if (folderService.isFolderBelongsToUser(folderId, userId)) {
@@ -77,18 +78,19 @@ public class FileController {
                 Tika tika = new Tika();
                 String mimeType = tika.detect(file.getInputStream());
 
-                SaveFileDto fileDto = new SaveFileDto(
+                SaveFileDto saveFileDto = new SaveFileDto(
                         file.getOriginalFilename(),
                         folderId,
                         fileContent,
                         mimeType
                 );
 
-                fileService.save(fileDto);
+                 fileDto = fileService.save(saveFileDto);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-            return new ResponseEntity<>(HttpStatus.OK);
+
+            return  fileDto;
         } else {
             throw new AccessDeniedException("Folder does not exist or user dont have access on it");
         }

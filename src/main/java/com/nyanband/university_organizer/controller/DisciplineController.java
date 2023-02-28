@@ -44,12 +44,11 @@ public class DisciplineController {
 
     @PostMapping
     @ApiOperation("Create new discipline")
-    public ResponseEntity<?> addDiscipline(@RequestBody SaveDisciplineDto disciplineDto) {
+    public DisciplineDto addDiscipline(@RequestBody SaveDisciplineDto disciplineDto) {
         long userId = ControllerUtils.getUserId();
         long semesterId = disciplineDto.getSemesterId();
         if (semesterService.isSemesterBelongsToUser(semesterId, userId)) {
-            disciplineService.save(disciplineDto);
-            return new ResponseEntity<>(HttpStatus.OK);
+            return disciplineService.save(disciplineDto);
         } else {
             throw new AccessDeniedException("Semester does not exist or user dont have access on it");
         }

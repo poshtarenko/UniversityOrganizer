@@ -13,7 +13,7 @@ public interface FolderService {
 
     boolean isFolderBelongsToUser(long folderId, long userId);
 
-    void save(SaveFolderDto semesterDto);
+    FolderDto save(SaveFolderDto semesterDto);
 
     void delete(long folderId);
 }
