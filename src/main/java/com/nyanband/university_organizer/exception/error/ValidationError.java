@@ -1,4 +1,4 @@
-package com.nyanband.university_organizer.controller.error;
+package com.nyanband.university_organizer.exception.error;
 
 import lombok.Data;
 import lombok.Value;

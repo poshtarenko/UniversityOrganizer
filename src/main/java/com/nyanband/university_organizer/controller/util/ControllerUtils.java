@@ -1,9 +1,11 @@
 package com.nyanband.university_organizer.controller.util;
 
 import com.nyanband.university_organizer.security.userdetails.UserDetailsImpl;
+import lombok.experimental.UtilityClass;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+@UtilityClass
 public class ControllerUtils {
 
     public static long getUserId() {
