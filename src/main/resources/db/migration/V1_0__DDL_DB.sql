@@ -87,10 +87,3 @@ CREATE TABLE ScheduleItem
     lesson_type   varchar(32) NOT NULL,
     weekday       varchar(32) NOT NULL
 );
-
-INSERT into roles (name)
-values ('ADMIN');
-INSERT into roles (name)
-values ('MODER');
-INSERT into roles (name)
-values ('USER');
