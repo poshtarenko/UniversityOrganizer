@@ -19,7 +19,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-@Validated
 public class CourseServiceImpl implements CourseService {
 
     CourseRepository courseRepository;
@@ -50,13 +49,16 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     @Transactional
-    public CourseDto save(@Valid SaveCourseDto saveCourseDto) {
+    public CourseDto save(SaveCourseDto saveCourseDto) {
         Course course = courseRepository.save(courseMapper.toEntity(saveCourseDto));
 
         Semester semester1 = new Semester(1, course);
         Semester semester2 = new Semester(2, course);
-        semesterRepository.save(semester1);
-        semesterRepository.save(semester2);
+
+        Semester savedSemester1 = semesterRepository.save(semester1);
+        Semester savedSemester2 = semesterRepository.save(semester2);
+
+        course.setSemesters(List.of(savedSemester1, savedSemester2));
 
         return courseMapper.toDto(course);
     }
