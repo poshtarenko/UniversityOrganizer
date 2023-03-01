@@ -5,16 +5,13 @@ import com.nyanband.university_organizer.dto.SaveCourseDto;
 import com.nyanband.university_organizer.dto.mapper.CourseMapper;
 import com.nyanband.university_organizer.entity.Course;
 import com.nyanband.university_organizer.entity.Semester;
-import com.nyanband.university_organizer.entity.User;
 import com.nyanband.university_organizer.repository.CourseRepository;
 import com.nyanband.university_organizer.repository.SemesterRepository;
 import com.nyanband.university_organizer.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.validation.annotation.Validated;
 
-import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 

@@ -1,20 +1,16 @@
 package com.nyanband.university_organizer.controller;
 
 import com.nyanband.university_organizer.controller.util.ControllerUtils;
-import com.nyanband.university_organizer.dto.DisciplineDto;
 import com.nyanband.university_organizer.dto.FolderDto;
-import com.nyanband.university_organizer.dto.SaveDisciplineDto;
 import com.nyanband.university_organizer.dto.SaveFolderDto;
 import com.nyanband.university_organizer.exception.AccessDeniedException;
 import com.nyanband.university_organizer.service.DisciplineService;
 import com.nyanband.university_organizer.service.FolderService;
-import com.nyanband.university_organizer.service.SemesterService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

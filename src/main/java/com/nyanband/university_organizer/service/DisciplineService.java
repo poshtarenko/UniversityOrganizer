@@ -16,5 +16,5 @@ public interface DisciplineService {
 
     DisciplineDto save(@Valid SaveDisciplineDto disciplineDto);
 
-    void  delete(long disciplineId);
+    void delete(long disciplineId);
 }

@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Setter
 @Getter
 @Entity
-@Table(name ="usersetting",
+@Table(name = "usersetting",
         uniqueConstraints = {@UniqueConstraint(columnNames = "user_id")})
 public class UserSetting extends BaseEntity {
 

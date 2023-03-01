@@ -42,7 +42,7 @@ public class FolderServiceImpl implements FolderService {
     @Override
     @Transactional
     public FolderDto save(@Valid SaveFolderDto saveFolderDto) {
-        Folder folder =  folderMapper.toEntity(saveFolderDto);
+        Folder folder = folderMapper.toEntity(saveFolderDto);
         FolderDto folderDto = folderMapper.toDto(folder);
         folderRepository.save(folder);
         return folderDto;

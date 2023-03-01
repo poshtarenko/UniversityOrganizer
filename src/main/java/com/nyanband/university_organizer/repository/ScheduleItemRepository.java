@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface ScheduleItemRepository extends JpaRepository <ScheduleItem,Long> {
+public interface ScheduleItemRepository extends JpaRepository<ScheduleItem, Long> {
     void deleteById(long scheduleItemId);
 
     //select count(us) > 0  from UserSetting  us  where  us.id = :settingId and us.user.id = :userId

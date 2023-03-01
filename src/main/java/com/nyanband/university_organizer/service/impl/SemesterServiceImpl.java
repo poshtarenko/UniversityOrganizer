@@ -31,7 +31,7 @@ public class SemesterServiceImpl implements SemesterService {
     @Override
     @Transactional
     public SemesterDto save(@Valid SemesterDto semesterDto) {
-            return null;
+        return null;
     }
 
     @Override

@@ -7,24 +7,25 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.List;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Setter
 @Getter
 @Entity
-@Table(name ="schedule",
+@Table(name = "schedule",
         uniqueConstraints = {@UniqueConstraint(columnNames = "semester_id")})
-public class Schedule  extends BaseEntity{
+public class Schedule extends BaseEntity {
     //owning side
 
     //owning side
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "semester_id",referencedColumnName = "id")
+    @JoinColumn(name = "semester_id", referencedColumnName = "id")
     Semester semester;
 
 
-    @OneToMany(mappedBy = "schedule",fetch = FetchType.LAZY)
-    List <ScheduleItem> scheduleItems;
+    @OneToMany(mappedBy = "schedule", fetch = FetchType.LAZY)
+    List<ScheduleItem> scheduleItems;
 
     public Schedule(Long id) {
         super(id);

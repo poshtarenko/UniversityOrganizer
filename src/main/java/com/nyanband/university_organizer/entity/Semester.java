@@ -27,7 +27,6 @@ public class Semester extends BaseEntity {
     Schedule schedule;
 
 
-
     public Semester(Integer number, Course course) {
         this.number = number;
         this.course = course;

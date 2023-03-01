@@ -1,8 +1,6 @@
 package com.nyanband.university_organizer.repository;
 
-import com.nyanband.university_organizer.entity.Course;
 import com.nyanband.university_organizer.entity.Discipline;
-import com.nyanband.university_organizer.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

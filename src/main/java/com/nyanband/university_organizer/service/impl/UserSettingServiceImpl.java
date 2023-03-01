@@ -19,6 +19,7 @@ public class UserSettingServiceImpl implements UserSettingService {
     UserSettingRepository userSettingRepository;
     UserSettingMapper userSettingMapper;
     UserRepository userRepository;
+
     @Autowired
     public UserSettingServiceImpl(UserSettingRepository userSettingRepository,
                                   UserSettingMapper userSettingMapper,
@@ -40,12 +41,11 @@ public class UserSettingServiceImpl implements UserSettingService {
 
     @Transactional
     @Override
-    public boolean isSettingBelongsToUser(long userId,long settingId) {
+    public boolean isSettingBelongsToUser(long userId, long settingId) {
 
 
-        return userSettingRepository.SettingsBelongsToUser(userId,settingId);
+        return userSettingRepository.SettingsBelongsToUser(userId, settingId);
     }
-
 
 
     @Transactional
@@ -54,7 +54,6 @@ public class UserSettingServiceImpl implements UserSettingService {
 
         return userSettingMapper.toDto(userSettingRepository.getUserSettingByUserId(userId));
     }
-
 
 
 }

@@ -1,18 +1,10 @@
 package com.nyanband.university_organizer.service.impl;
 
-import com.nyanband.university_organizer.dto.CourseDto;
 import com.nyanband.university_organizer.dto.DisciplineDto;
 import com.nyanband.university_organizer.dto.SaveDisciplineDto;
-import com.nyanband.university_organizer.dto.mapper.CourseMapper;
 import com.nyanband.university_organizer.dto.mapper.DisciplineMapper;
-import com.nyanband.university_organizer.entity.Course;
 import com.nyanband.university_organizer.entity.Discipline;
-import com.nyanband.university_organizer.entity.Folder;
-import com.nyanband.university_organizer.entity.Semester;
-import com.nyanband.university_organizer.repository.CourseRepository;
 import com.nyanband.university_organizer.repository.DisciplineRepository;
-import com.nyanband.university_organizer.repository.SemesterRepository;
-import com.nyanband.university_organizer.service.CourseService;
 import com.nyanband.university_organizer.service.DisciplineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -55,7 +47,7 @@ public class DisciplineServiceImpl implements DisciplineService {
         Discipline discipline = disciplineMapper.toEntity(saveDisciplineDto);
         DisciplineDto disciplineDto = disciplineMapper.toDto(discipline);
         disciplineRepository.save(discipline);
-        return  disciplineDto;
+        return disciplineDto;
     }
 
     @Override

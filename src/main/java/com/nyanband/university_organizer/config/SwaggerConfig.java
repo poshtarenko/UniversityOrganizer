@@ -2,7 +2,6 @@ package com.nyanband.university_organizer.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpHeaders;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.*;
@@ -41,15 +40,15 @@ public class SwaggerConfig {
         AuthorizationScope authorizationScope = new AuthorizationScope("global", "accessEverything");
         AuthorizationScope[] authorizationScopes = new AuthorizationScope[1];
         authorizationScopes[0] = authorizationScope;
-        return Arrays.asList(new SecurityReference("JWT", authorizationScopes));
+        return List.of(new SecurityReference("JWT", authorizationScopes));
     }
 
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
-                .securityContexts(Arrays.asList(securityContext()))
-                .securitySchemes(Arrays.asList(apiKey()))
+                .securityContexts(Collections.singletonList(securityContext()))
+                .securitySchemes(List.of(apiKey()))
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.nyanband.university_organizer.controller"))
                 .paths(PathSelectors.any())

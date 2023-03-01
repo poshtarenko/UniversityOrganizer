@@ -19,7 +19,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
@@ -68,7 +67,7 @@ public class FileController {
     @PostMapping
     @ApiOperation("Create new file")
     public FileDto addFile(@RequestParam("folderId") Long folderId,
-                                     @RequestPart("file") MultipartFile file) {
+                           @RequestPart("file") MultipartFile file) {
         FileDto fileDto;
         long userId = ControllerUtils.getUserId();
 
@@ -85,12 +84,12 @@ public class FileController {
                         mimeType
                 );
 
-                 fileDto = fileService.save(saveFileDto);
+                fileDto = fileService.save(saveFileDto);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
 
-            return  fileDto;
+            return fileDto;
         } else {
             throw new AccessDeniedException("Folder does not exist or user dont have access on it");
         }

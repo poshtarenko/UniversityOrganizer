@@ -1,11 +1,11 @@
 package com.nyanband.university_organizer.service;
 
-import com.nyanband.university_organizer.dto.*;
+import com.nyanband.university_organizer.dto.FileContentDto;
+import com.nyanband.university_organizer.dto.FileDto;
+import com.nyanband.university_organizer.dto.SaveFileDto;
 import org.springframework.validation.annotation.Validated;
 
 import javax.validation.Valid;
-import java.io.FileInputStream;
-import java.io.InputStream;
 import java.util.List;
 
 @Validated

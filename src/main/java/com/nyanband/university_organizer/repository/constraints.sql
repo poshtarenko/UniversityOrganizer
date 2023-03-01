@@ -9,7 +9,7 @@ ALTER TABLE Course
     ADD CONSTRAINT course_number_check CHECK (num > 0 and num <= 6);
 
 ALTER TABLE course
-    ADD CONSTRAINT course_number_unique UNIQUE (num,user_id);
+    ADD CONSTRAINT course_number_unique UNIQUE (num, user_id);
 --Semester
 ALTER TABLE Semester
     ADD CONSTRAINT semester_number_check CHECK (num > 0 and num <= 2);
@@ -34,5 +34,8 @@ ALTER TABLE ScheduleItem
     ADD CONSTRAINT lesson_type_enum CHECK (lesson_type in ('LECTURE', 'PRACTICE', 'LAB'));
 ALTER TABLE ScheduleItem
     ADD CONSTRAINT week_type_enum CHECK (week_type in ('PAIR', 'NON_PAIR', 'ALL'));
-DELETE FROM course where num = 1 and num  = 2;
+DELETE
+FROM course
+where num = 1
+  and num = 2;
 

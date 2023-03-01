@@ -1,20 +1,19 @@
 package com.nyanband.university_organizer.controller;
 
-import com.nyanband.university_organizer.entity.enums.ERole;
 import com.nyanband.university_organizer.entity.Role;
 import com.nyanband.university_organizer.entity.User;
+import com.nyanband.university_organizer.entity.enums.ERole;
 import com.nyanband.university_organizer.repository.RoleRepository;
 import com.nyanband.university_organizer.repository.UserRepository;
 import com.nyanband.university_organizer.security.jwt.JwtUtils;
-import com.nyanband.university_organizer.security.pojo.JwtResponse;
 import com.nyanband.university_organizer.security.pojo.AuthRequest;
+import com.nyanband.university_organizer.security.pojo.JwtResponse;
 import com.nyanband.university_organizer.security.pojo.MessageResponse;
 import com.nyanband.university_organizer.security.userdetails.UserDetailsImpl;
 import com.nyanband.university_organizer.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -22,13 +21,11 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.validation.FieldError;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController

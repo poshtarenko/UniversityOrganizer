@@ -1,9 +1,7 @@
 package com.nyanband.university_organizer.service;
 
-import com.nyanband.university_organizer.dto.DisciplineDto;
 import com.nyanband.university_organizer.dto.FolderDto;
 import com.nyanband.university_organizer.dto.SaveFolderDto;
-import com.nyanband.university_organizer.dto.SemesterDto;
 import org.springframework.validation.annotation.Validated;
 
 import javax.validation.Valid;

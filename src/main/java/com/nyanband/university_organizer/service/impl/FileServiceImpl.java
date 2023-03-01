@@ -1,8 +1,6 @@
 package com.nyanband.university_organizer.service.impl;
 
 import com.nyanband.university_organizer.cloud.CloudStorage;
-import com.nyanband.university_organizer.cloud.CloudStorageImpl;
-import com.nyanband.university_organizer.config.GoogleDriveConfig;
 import com.nyanband.university_organizer.dto.FileContentDto;
 import com.nyanband.university_organizer.dto.FileDto;
 import com.nyanband.university_organizer.dto.SaveFileDto;
@@ -73,7 +71,7 @@ public class FileServiceImpl implements FileService {
         file.setPath(filePath);
         FileDto fileDto = fileMapper.toDto(file);
         fileRepository.save(file);
-        return  fileDto;
+        return fileDto;
     }
 
     @Override

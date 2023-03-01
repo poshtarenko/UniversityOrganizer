@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/user_settings")
 public class UserSettingController {
 
-    private UserSettingService userSettingService;
+    private final UserSettingService userSettingService;
 
     @Autowired
     public UserSettingController(UserSettingService userSettingService) {

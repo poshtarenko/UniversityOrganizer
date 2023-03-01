@@ -21,10 +21,10 @@ public interface CloudStorage {
 
     /**
      * Get image from cloud
+     *
      * @return generated fileId
      */
     String saveFile(String fileName, InputStream inputStream, String mimeType);
-
 
 
 }

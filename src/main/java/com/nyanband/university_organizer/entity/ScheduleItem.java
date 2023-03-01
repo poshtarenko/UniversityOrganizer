@@ -16,8 +16,8 @@ import javax.persistence.*;
 @Setter
 @Table(name = "scheduleitem")
 @Entity
-public class ScheduleItem extends BaseEntity{
-    @Column(name =  "lesson_num")
+public class ScheduleItem extends BaseEntity {
+    @Column(name = "lesson_num")
     Integer lesson_num;
     @Column(name = "weekday")
     @Enumerated(EnumType.STRING)
@@ -30,14 +30,11 @@ public class ScheduleItem extends BaseEntity{
     EWeakType weakType;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "discipline_id",referencedColumnName = "id")
+    @JoinColumn(name = "discipline_id", referencedColumnName = "id")
     Discipline discipline;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "schedule_id", referencedColumnName = "id")
     Schedule schedule;
-
-
-
 
 
     public ScheduleItem(Long id) {
