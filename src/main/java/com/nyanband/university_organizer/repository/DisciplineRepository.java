@@ -8,7 +8,8 @@ import java.util.List;
 
 public interface DisciplineRepository extends JpaRepository<Discipline, Long> {
     List<Discipline> getDisciplinesBySemesterId(long semesterId);
-
+    @Query("SELECT  COUNT(d) > 0 FROM Discipline d WHERE d.id =:disciplineId")
+    Boolean isDiciplineExistById(long disciplineId);
     void deleteById(long disciplineId);
 
     @Query("select count(d) > 0 from Discipline d " +

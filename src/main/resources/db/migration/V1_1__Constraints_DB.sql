@@ -7,12 +7,14 @@ ALTER TABLE Roles
 --Сourse
 ALTER TABLE Course
     ADD CONSTRAINT course_number_check CHECK (num > 0 and num <= 6);
-
 ALTER TABLE course
     ADD CONSTRAINT course_number_unique UNIQUE (num, user_id);
 --Semester
 ALTER TABLE Semester
     ADD CONSTRAINT semester_number_check CHECK (num > 0 and num <= 2);
+-- Discipline
+ALTER TABLE Discipline
+    ADD CONSTRAINT  discipline_name_unique UNIQUE (name,semester_id);
 -- UserSetting
 ALTER TABLE UserSetting
     ADD CONSTRAINT user_setting_fk UNIQUE (user_id);

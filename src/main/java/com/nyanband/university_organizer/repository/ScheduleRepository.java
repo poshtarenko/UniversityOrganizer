@@ -20,5 +20,7 @@ public interface ScheduleRepository extends JpaRepository<Schedule, Long> {
     Boolean isScheduleExist(long scheduleId);
     void deleteById(long scheduleId);
     Schedule getScheduleBySemesterId(long semesterId);
+    @Query("SELECT COUNT(s) > 0 FROM Schedule  s  WHERE s.semester.id =:semesterId")
+    Boolean isSemesterHasSchedule(long semesterId);
 
 }

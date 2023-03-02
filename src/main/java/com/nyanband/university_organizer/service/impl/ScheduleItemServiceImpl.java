@@ -8,6 +8,7 @@ import com.nyanband.university_organizer.service.ScheduleItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,16 +27,16 @@ public class ScheduleItemServiceImpl implements ScheduleItemService {
     }
 
     @Override
+    @Transactional
     public void save(SaveScheduleItemDto saveScheduleItemDto) {
-//        if(disciplineExist(saveScheduleItemDto.getDisciplineId())){
-             scheduleItemRepository.save(scheduleItemMapper.toEntity(saveScheduleItemDto));
-//        }
-        //Discipline discipline = new Discipline(saveScheduleItemDto)
+
+        scheduleItemRepository.save(scheduleItemMapper.toEntity(saveScheduleItemDto));
     }
 
     @Override
+    @Transactional
     public void delete(long scheduleItemId) {
-            scheduleItemRepository.delete(scheduleItemRepository.getScheduleItemById(scheduleItemId));
+            scheduleItemRepository.deleteById(scheduleItemId);
     }
 
     @Override
@@ -48,12 +49,13 @@ public class ScheduleItemServiceImpl implements ScheduleItemService {
         return null;
     }
 
-//    @Override
-//    public boolean isScheduleBelongsToUser(long semesterId, long userId) {
-//        return scheduleItemRepository.;
-//    }
+    @Override
+    public Boolean isScheduleItemBelongsToUser(long userId, long scheduleItemId) {
+        return scheduleItemRepository.scheduleItemBelongsToSchedule(userId,scheduleItemId);
+    }
 
     @Override
+    @Transactional
     public List<ScheduleItemDto> getScheduleItemsForSchedule(long scheduleId, long userId) {
         return scheduleItemRepository.getScheduleItemsByScheduleId(scheduleId,userId).stream()
                 .map(scheduleItemMapper::toDto)

@@ -8,10 +8,11 @@ import lombok.Value;
 @Value
 public class ScheduleItemDto {
     Long id;
+    Integer lessonNum;
     Long scheduleId;
     Long disciplineId;
     ELessonType lessonType;
     EWeakType weakType;
     EWeekday weekday;
-    Integer lessonNum;
+
 }
