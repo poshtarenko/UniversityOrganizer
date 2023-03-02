@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface DisciplineRepository extends JpaRepository<Discipline, Long> {
+
     List<Discipline> getDisciplinesBySemesterId(long semesterId);
 
     Optional<Discipline> findByNameAndSemesterId(String name, Long semesterId);
@@ -17,4 +18,7 @@ public interface DisciplineRepository extends JpaRepository<Discipline, Long> {
     @Query("select count(d) > 0 from Discipline d " +
             "where d.id = :disciplineId and d.semester.course.user.id = :userId")
     Boolean disciplineBelongsToUser(long disciplineId, long userId);
+
+    @Query("SELECT  COUNT(d) > 0 FROM Discipline d WHERE d.id =:disciplineId")
+    Boolean isDisciplineExistById(long disciplineId);
 }

@@ -57,6 +57,6 @@ public class DisciplineServiceImpl implements DisciplineService {
     @Override
     @Transactional
     public boolean isDisciplineExistById(Long disciplineId) {
-        return  disciplineRepository.isDiciplineExistById(disciplineId);
+        return  disciplineRepository.isDisciplineExistById(disciplineId);
     }
 }
