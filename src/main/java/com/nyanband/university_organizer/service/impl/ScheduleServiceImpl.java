@@ -13,6 +13,7 @@ import com.nyanband.university_organizer.service.ScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -36,6 +37,7 @@ public class ScheduleServiceImpl implements ScheduleService {
     }
 
     @Override
+    @Transactional
     public void save(SaveScheduleDto saveScheduleDto) {
         scheduleRepository.save(scheduleMapper.toEntity(saveScheduleDto));
     }
@@ -46,21 +48,22 @@ public class ScheduleServiceImpl implements ScheduleService {
     }
 
     @Override
+    @Transactional
     public void delete(long scheduleId) {
         scheduleRepository.deleteById(scheduleId);
     }
 
     @Override
-    public List<ScheduleItemDto> getScheduleItemsForSchedule(long scheduleId, long userId) {
-        return scheduleItemService.getScheduleItemsForSemester(scheduleId,userId);
-    }
-
-
-    @Override
+    @Transactional
     public List<ScheduleDto> getScheduleForUserId(long userId) {
         return scheduleRepository.getSchedulesByUserId(userId).stream()
                 .map(scheduleMapper::toDto)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public boolean isSemesterHasSchedule(long semesterId) {
+        return scheduleRepository.isSemesterHasSchedule(semesterId);
     }
 
     @Override

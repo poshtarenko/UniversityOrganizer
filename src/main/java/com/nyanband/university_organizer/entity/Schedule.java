@@ -17,7 +17,7 @@ import java.util.List;
         uniqueConstraints = {@UniqueConstraint(columnNames = "semester_id")})
 public class Schedule extends BaseEntity {
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "semester_id", referencedColumnName = "id")
     Semester semester;
 

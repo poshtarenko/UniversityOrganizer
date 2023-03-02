@@ -15,4 +15,5 @@ public interface ScheduleItemService {
     List<ScheduleItemDto> getScheduleItemsForSemester(long semesterId, long userId);
 
     List<ScheduleItemDto> getScheduleItemsForSchedule(long scheduleId, long userId);
+    Boolean isScheduleItemBelongsToUser(long userid,long scheduleItemId);
 }

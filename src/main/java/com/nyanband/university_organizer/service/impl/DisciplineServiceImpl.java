@@ -54,4 +54,9 @@ public class DisciplineServiceImpl implements DisciplineService {
         disciplineRepository.deleteById(disciplineId);
     }
 
+    @Override
+    @Transactional
+    public boolean isDisciplineExistById(Long disciplineId) {
+        return  disciplineRepository.isDiciplineExistById(disciplineId);
+    }
 }

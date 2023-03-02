@@ -15,7 +15,7 @@ public interface ScheduleService {
     void delete(long scheduleId);
 
 
-    List<ScheduleItemDto> getScheduleItemsForSchedule(long scheduleId, long userId);
+
 
     //List<ScheduleItemDto> getAllUsersScheduleItems(long userId);
 
@@ -23,4 +23,6 @@ public interface ScheduleService {
 
     Boolean isScheduleExist(long scheduleId);
     Boolean isScheduleBelongToUser(long userId,long scheduleId);
+
+    boolean isSemesterHasSchedule(long semesterId);
 }
