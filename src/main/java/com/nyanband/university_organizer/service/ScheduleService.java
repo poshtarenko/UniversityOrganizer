@@ -15,12 +15,12 @@ public interface ScheduleService {
     void delete(long scheduleId);
 
 
-    List<ScheduleItemDto> getScheduleItemsForSemester(long semesterId, long userId);
+    List<ScheduleItemDto> getScheduleItemsForSchedule(long scheduleId, long userId);
 
-    List<ScheduleItemDto> getAllUsersScheduleItems(long userId);
+    //List<ScheduleItemDto> getAllUsersScheduleItems(long userId);
 
     List<ScheduleDto> getScheduleForUserId(long userId);
 
-
-    Boolean isScheduleBelongToUser(long userId);
+    Boolean isScheduleExist(long scheduleId);
+    Boolean isScheduleBelongToUser(long userId,long scheduleId);
 }

@@ -12,6 +12,8 @@ public interface CourseRepository extends JpaRepository<Course, Long> {
 
     void deleteById(long courseId);
 
+
+
     @Query("select count(c) > 0 from Course c where c.id = :courseId and c.user.id = :userId")
     Boolean courseBelongsToUser(long courseId, long userId);
 

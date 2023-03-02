@@ -14,6 +14,9 @@ public class SaveScheduleItemDto {
     @Positive(message = "Schedule id must be positive")
     Long scheduleId;
 
+//    @NotNull(message = "discipline name can not be null")
+//    String disciplineName;
+
     @Positive(message = "Discipline id must be positive")
     Long disciplineId;
 
