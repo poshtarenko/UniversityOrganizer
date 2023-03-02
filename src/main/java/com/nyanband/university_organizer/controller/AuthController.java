@@ -1,8 +1,5 @@
 package com.nyanband.university_organizer.controller;
 
-import com.nyanband.university_organizer.entity.Role;
-import com.nyanband.university_organizer.entity.User;
-import com.nyanband.university_organizer.entity.enums.ERole;
 import com.nyanband.university_organizer.repository.RoleRepository;
 import com.nyanband.university_organizer.repository.UserRepository;
 import com.nyanband.university_organizer.security.jwt.JwtUtils;
@@ -24,7 +21,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -74,10 +70,11 @@ public class AuthController {
                 .collect(Collectors.toList());
 
         return ResponseEntity.ok(new JwtResponse(
-                jwt,
-                userDetails.getId(),
-                userDetails.getEmail(),
-                roles)
+                        jwt,
+                        userDetails.getId(),
+                        userDetails.getEmail(),
+                        roles
+                )
         );
     }
 
@@ -91,7 +88,9 @@ public class AuthController {
                     .body(new MessageResponse("Error: Email is exist"));
         }
 
+        authRequest.setPassword(passwordEncoder.encode(authRequest.getPassword()));
         userService.register(authRequest);
+
         return ResponseEntity.ok(new MessageResponse("User CREATED"));
     }
 }
