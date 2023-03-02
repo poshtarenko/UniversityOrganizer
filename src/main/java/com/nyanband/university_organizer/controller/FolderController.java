@@ -37,7 +37,7 @@ public class FolderController {
         if (disciplineService.isDisciplineBelongsToUser(disciplineId, userId)) {
             return folderService.getDisciplineFolders(disciplineId);
         } else {
-            throw new AccessDeniedException("Semester does not exist or user dont have access on it");
+            throw new AccessDeniedException("Discipline does not exist or user dont have access on it");
         }
     }
 
@@ -61,7 +61,7 @@ public class FolderController {
 
         if (folderService.isFolderBelongsToUser(folderId, userId)) {
             folderService.delete(folderId);
-            return new ResponseEntity<>(HttpStatus.OK);
+            return ControllerUtils.okResponse();
         } else {
             throw new AccessDeniedException("Folder does not exist or user dont have access on it");
         }

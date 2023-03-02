@@ -1,5 +1,6 @@
 package com.nyanband.university_organizer.controller;
 
+import com.nyanband.university_organizer.controller.util.ControllerUtils;
 import com.nyanband.university_organizer.repository.RoleRepository;
 import com.nyanband.university_organizer.repository.UserRepository;
 import com.nyanband.university_organizer.security.jwt.JwtUtils;
@@ -11,6 +12,7 @@ import com.nyanband.university_organizer.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -31,22 +33,16 @@ import java.util.stream.Collectors;
 public class AuthController {
 
     AuthenticationManager authenticationManager;
-    UserRepository userRepository;
-    RoleRepository roleRepository;
     PasswordEncoder passwordEncoder;
     UserService userService;
     JwtUtils jwtUtils;
 
     @Autowired
     public AuthController(AuthenticationManager authenticationManager,
-                          UserRepository userRespository,
-                          RoleRepository roleRepository,
                           PasswordEncoder passwordEncoder,
                           UserService userService,
                           JwtUtils jwtUtils) {
         this.authenticationManager = authenticationManager;
-        this.userRepository = userRespository;
-        this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
         this.jwtUtils = jwtUtils;
         this.userService = userService;
@@ -81,16 +77,8 @@ public class AuthController {
     @PostMapping("/sign_up")
     @ApiOperation("Registration")
     public ResponseEntity<?> registerUser(@Valid @RequestBody AuthRequest authRequest) {
-
-        if (userRepository.existsByEmail(authRequest.getEmail())) {
-            return ResponseEntity
-                    .badRequest()
-                    .body(new MessageResponse("Error: Email is exist"));
-        }
-
         authRequest.setPassword(passwordEncoder.encode(authRequest.getPassword()));
         userService.register(authRequest);
-
-        return ResponseEntity.ok(new MessageResponse("User CREATED"));
+        return ControllerUtils.okResponse();
     }
 }

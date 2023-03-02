@@ -60,7 +60,7 @@ public class DisciplineController {
 
         if (disciplineService.isDisciplineBelongsToUser(disciplineId, userId)) {
             disciplineService.delete(disciplineId);
-            return new ResponseEntity<>(HttpStatus.OK);
+            return ControllerUtils.okResponse();
         } else {
             throw new AccessDeniedException("Discipline does not exist or user dont have access on it");
         }

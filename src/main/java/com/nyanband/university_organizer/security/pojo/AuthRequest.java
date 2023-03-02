@@ -1,5 +1,6 @@
 package com.nyanband.university_organizer.security.pojo;
 
+import com.nyanband.university_organizer.validation.annotation.UniqueUserEmailConstraint;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,6 +14,7 @@ import javax.validation.constraints.NotEmpty;
 @Setter
 public class AuthRequest {
     @Email
+    @UniqueUserEmailConstraint
     String email;
 
     @NotEmpty

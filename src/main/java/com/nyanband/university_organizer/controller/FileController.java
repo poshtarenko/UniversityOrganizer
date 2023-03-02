@@ -102,7 +102,7 @@ public class FileController {
 
         if (fileService.isFileBelongsToUser(fileId, userId)) {
             folderService.delete(fileId);
-            return new ResponseEntity<>(HttpStatus.OK);
+            return ControllerUtils.okResponse();
         } else {
             throw new AccessDeniedException("File does not exist or user dont have access on it");
         }

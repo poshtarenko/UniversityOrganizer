@@ -13,6 +13,8 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Entity
+@Table(name = "file",
+        uniqueConstraints = @UniqueConstraint(columnNames = {"folder_id", "name"}))
 public class File extends BaseEntity {
     String name;
 

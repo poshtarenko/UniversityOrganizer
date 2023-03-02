@@ -13,6 +13,8 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
+@Table(name = "semester",
+        uniqueConstraints = @UniqueConstraint(columnNames = {"course_id", "num"}))
 public class Semester extends BaseEntity {
     @Column(name = "num")
     Integer number;

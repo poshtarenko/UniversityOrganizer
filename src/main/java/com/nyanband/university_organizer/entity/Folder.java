@@ -13,6 +13,8 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
+@Table(name = "folder",
+        uniqueConstraints = @UniqueConstraint(columnNames = {"discipline_id", "name"}))
 public class Folder extends BaseEntity {
     String name;
 

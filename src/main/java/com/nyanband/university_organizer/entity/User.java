@@ -13,10 +13,9 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@Table(name = "users",
-        uniqueConstraints = {@UniqueConstraint(columnNames = "email")}
-)
+@Table(name = "users")
 public class User extends BaseEntity {
+    @Column(name = "email", unique = true)
     String email;
 
     String password;

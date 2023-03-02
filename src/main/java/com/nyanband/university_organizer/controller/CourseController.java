@@ -51,7 +51,7 @@ public class CourseController {
 
         if (courseService.isCourseBelongsToUser(courseId, userId)) {
             courseService.delete(courseId);
-            return new ResponseEntity<>(HttpStatus.OK);
+            return ControllerUtils.okResponse();
         } else {
             throw new AccessDeniedException("Course does not exist or user dont have access on it");
         }
