@@ -49,7 +49,10 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
                                                                HttpStatus status,
                                                                WebRequest request) {
         List<ValidationError.Violation> violations = ex.getBindingResult().getFieldErrors().stream()
-                .map(fieldError -> new ValidationError.Violation(fieldError.getField(), fieldError.getDefaultMessage()))
+                .map(fieldError -> new ValidationError.Violation(
+                        fieldError.getField(),
+                        fieldError.getDefaultMessage()
+                ))
                 .collect(Collectors.toList());
 
         return ExceptionHandlerUtils.buildResponseEntity(
@@ -65,7 +68,10 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
     public ResponseEntity<Object> handleConstraintValidation(ConstraintViolationException e) {
         List<ValidationError.Violation> violations = e.getConstraintViolations().stream()
-                .map(v -> new ValidationError.Violation(v.getPropertyPath().toString(), v.getMessage()))
+                .map(v -> new ValidationError.Violation(
+                        v.getPropertyPath().toString(),
+                        v.getMessage()
+                ))
                 .collect(Collectors.toList());
 
         return ExceptionHandlerUtils.buildResponseEntity(

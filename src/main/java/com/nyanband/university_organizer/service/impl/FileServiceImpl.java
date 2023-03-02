@@ -66,12 +66,11 @@ public class FileServiceImpl implements FileService {
                 saveFileDto.getMimeType()
         );
 
-        File file = fileMapper.toEntity(saveFileDto);
-        file.setUploadTime(LocalDateTime.now());
-        file.setPath(filePath);
-        FileDto fileDto = fileMapper.toDto(file);
-        fileRepository.save(file);
-        return fileDto;
+        File fileToSave = fileMapper.toEntity(saveFileDto);
+        fileToSave.setUploadTime(LocalDateTime.now());
+        fileToSave.setPath(filePath);
+        File file = fileRepository.save(fileToSave);
+        return fileMapper.toDto(file);
     }
 
     @Override

@@ -44,10 +44,8 @@ public class DisciplineServiceImpl implements DisciplineService {
     @Override
     @Transactional
     public DisciplineDto save(@Valid SaveDisciplineDto saveDisciplineDto) {
-        Discipline discipline = disciplineMapper.toEntity(saveDisciplineDto);
-        DisciplineDto disciplineDto = disciplineMapper.toDto(discipline);
-        disciplineRepository.save(discipline);
-        return disciplineDto;
+        Discipline discipline = disciplineRepository.save(disciplineMapper.toEntity(saveDisciplineDto));
+        return disciplineMapper.toDto(discipline);
     }
 
     @Override

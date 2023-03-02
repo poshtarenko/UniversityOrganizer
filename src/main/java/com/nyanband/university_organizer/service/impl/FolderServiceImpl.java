@@ -3,6 +3,7 @@ package com.nyanband.university_organizer.service.impl;
 import com.nyanband.university_organizer.dto.FolderDto;
 import com.nyanband.university_organizer.dto.SaveFolderDto;
 import com.nyanband.university_organizer.dto.mapper.FolderMapper;
+import com.nyanband.university_organizer.entity.Discipline;
 import com.nyanband.university_organizer.entity.Folder;
 import com.nyanband.university_organizer.repository.FolderRepository;
 import com.nyanband.university_organizer.service.FolderService;
@@ -42,10 +43,8 @@ public class FolderServiceImpl implements FolderService {
     @Override
     @Transactional
     public FolderDto save(@Valid SaveFolderDto saveFolderDto) {
-        Folder folder = folderMapper.toEntity(saveFolderDto);
-        FolderDto folderDto = folderMapper.toDto(folder);
-        folderRepository.save(folder);
-        return folderDto;
+        Folder folder = folderRepository.save(folderMapper.toEntity(saveFolderDto));
+        return folderMapper.toDto(folder);
     }
 
     @Override
