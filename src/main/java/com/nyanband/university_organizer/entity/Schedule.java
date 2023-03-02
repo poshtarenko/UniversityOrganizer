@@ -16,13 +16,10 @@ import java.util.List;
 @Table(name = "schedule",
         uniqueConstraints = {@UniqueConstraint(columnNames = "semester_id")})
 public class Schedule extends BaseEntity {
-    //owning side
 
-    //owning side
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     @JoinColumn(name = "semester_id", referencedColumnName = "id")
     Semester semester;
-
 
     @OneToMany(mappedBy = "schedule", fetch = FetchType.LAZY)
     List<ScheduleItem> scheduleItems;

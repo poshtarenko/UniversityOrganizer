@@ -4,7 +4,10 @@ import com.nyanband.university_organizer.dto.SaveScheduleDto;
 import com.nyanband.university_organizer.dto.ScheduleDto;
 import com.nyanband.university_organizer.dto.ScheduleItemDto;
 import com.nyanband.university_organizer.dto.mapper.ScheduleMapper;
+import com.nyanband.university_organizer.entity.Schedule;
+import com.nyanband.university_organizer.entity.Semester;
 import com.nyanband.university_organizer.repository.ScheduleRepository;
+import com.nyanband.university_organizer.repository.SemesterRepository;
 import com.nyanband.university_organizer.service.ScheduleItemService;
 import com.nyanband.university_organizer.service.ScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,23 +20,24 @@ import java.util.stream.Collectors;
 public class ScheduleServiceImpl implements ScheduleService {
 
     ScheduleRepository scheduleRepository;
+    SemesterRepository semesterRepository;
     ScheduleItemService scheduleItemService;
     ScheduleMapper scheduleMapper;
+
     @Autowired
-    public ScheduleServiceImpl(ScheduleRepository scheduleRepository, ScheduleItemService scheduleItemService, ScheduleMapper scheduleMapper) {
+    public ScheduleServiceImpl(ScheduleRepository scheduleRepository,
+                               SemesterRepository semesterRepository,
+                               ScheduleItemService scheduleItemService,
+                               ScheduleMapper scheduleMapper) {
         this.scheduleRepository = scheduleRepository;
+        this.semesterRepository = semesterRepository;
         this.scheduleItemService = scheduleItemService;
         this.scheduleMapper = scheduleMapper;
     }
 
-
-
-
     @Override
     public void save(SaveScheduleDto saveScheduleDto) {
-
         scheduleRepository.save(scheduleMapper.toEntity(saveScheduleDto));
-
     }
 
     @Override

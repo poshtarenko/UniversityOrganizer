@@ -23,6 +23,7 @@ public class Semester extends BaseEntity {
 
     @OneToMany(mappedBy = "semester", fetch = FetchType.LAZY)
     List<Discipline> disciplines;
+
     @OneToOne(mappedBy = "semester", fetch = FetchType.LAZY)
     Schedule schedule;
 

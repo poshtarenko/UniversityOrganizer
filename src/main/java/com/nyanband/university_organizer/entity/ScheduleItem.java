@@ -19,12 +19,15 @@ import javax.persistence.*;
 public class ScheduleItem extends BaseEntity {
     @Column(name = "lesson_num")
     Integer lesson_num;
+
     @Column(name = "weekday")
     @Enumerated(EnumType.STRING)
     EWeekday weekday;
+
     @Column(name = "lesson_type")
     @Enumerated(EnumType.STRING)
     ELessonType lessonType;
+
     @Column(name = "week_type")
     @Enumerated(EnumType.STRING)
     EWeakType weakType;
@@ -32,6 +35,7 @@ public class ScheduleItem extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "discipline_id", referencedColumnName = "id")
     Discipline discipline;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "schedule_id", referencedColumnName = "id")
     Schedule schedule;
