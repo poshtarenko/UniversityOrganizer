@@ -83,20 +83,15 @@ public class AuthController {
 
     @PostMapping("/sign_up")
     @ApiOperation("Registration")
-    public ResponseEntity<?> registerUser(@Valid @RequestBody AuthRequest signupRequest) {
+    public ResponseEntity<?> registerUser(@Valid @RequestBody AuthRequest authRequest) {
 
-        if (userRepository.existsByEmail(signupRequest.getEmail())) {
+        if (userRepository.existsByEmail(authRequest.getEmail())) {
             return ResponseEntity
                     .badRequest()
                     .body(new MessageResponse("Error: Email is exist"));
         }
 
-        User user = new User(
-                signupRequest.getEmail(),
-                passwordEncoder.encode(signupRequest.getPassword())
-        );
-        user.setRoles(Collections.singletonList(new Role(ERole.USER)));
-        userService.save(user);
+        userService.register(authRequest);
         return ResponseEntity.ok(new MessageResponse("User CREATED"));
     }
 }
