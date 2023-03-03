@@ -4,6 +4,7 @@ import com.nyanband.university_organizer.controller.util.ControllerUtils;
 import com.nyanband.university_organizer.dto.SaveUserSettingDto;
 import com.nyanband.university_organizer.dto.UpdateUserSettingDto;
 import com.nyanband.university_organizer.service.UserSettingService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/user_settings")
+@Api(description =  "UserSetting API")
 public class UserSettingController {
 
     private final UserSettingService userSettingService;
@@ -35,7 +37,7 @@ public class UserSettingController {
                 userSettingDto.getLessonDuration()
         );
         userSettingService.update(updateUserSettingDto);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return ControllerUtils.okResponse();
     }
 
 

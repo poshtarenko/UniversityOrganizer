@@ -8,16 +8,11 @@ import java.util.List;
 
 public interface ScheduleService {
 
-    //boolean isScheduleBelongsToUser(long semesterId, long userId);
 
     void save(SaveScheduleDto ScheduleDto);
 
     void delete(long scheduleId);
 
-
-
-
-    //List<ScheduleItemDto> getAllUsersScheduleItems(long userId);
 
     List<ScheduleDto> getScheduleForUserId(long userId);
 

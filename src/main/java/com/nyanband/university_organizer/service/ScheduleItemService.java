@@ -10,7 +10,6 @@ public interface ScheduleItemService {
     void save(SaveScheduleItemDto saveScheduleItemDto);
     void delete(long scheduleItemId);
 
-//    boolean isScheduleBelongsToUser(long semesterId, long userId);
     void update(SaveScheduleItemDto saveScheduleItemDto);
     List<ScheduleItemDto> getScheduleItemsForSemester(long semesterId, long userId);
 

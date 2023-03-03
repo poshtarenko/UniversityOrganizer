@@ -22,12 +22,13 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/schedule")
-@Api("Schedule API")
+@Api(description = "Schedule API")
+
 public class ScheduleController {
-    private ScheduleItemService scheduleItemService;
-    private ScheduleService scheduleService;
-    private DisciplineService disciplineService;
-    private SemesterService semesterService;
+    private  final ScheduleItemService scheduleItemService;
+    private  final ScheduleService scheduleService;
+    private  final DisciplineService disciplineService;
+    private  final SemesterService semesterService;
 
 
     @Autowired
@@ -38,24 +39,24 @@ public class ScheduleController {
         this.semesterService = semesterService;
     }
 
-    @PostMapping("/create")
+    @PostMapping
     @ApiOperation("Create new schedule")
     public ResponseEntity<?> createSchedule(@RequestParam("semesterId") Long id) {
         long userId = ControllerUtils.getUserId();
         if (semesterService.isSemesterBelongsToUser(id, userId) && !scheduleService.isSemesterHasSchedule(id)) {
             SaveScheduleDto saveScheduleDto = new SaveScheduleDto(id);
             scheduleService.save(saveScheduleDto);
-            return new ResponseEntity<>(HttpStatus.OK);
+            return ControllerUtils.okResponse();
         } else throw new AccessDeniedException("Schedule already exist or semester with this id doesn't exists");
     }
 
-    @PostMapping
+    @PostMapping("/addItem")
     @ApiOperation("Add new scheduleItem")
     public ResponseEntity<?> addScheduleItem(@RequestBody SaveScheduleItemDto saveScheduleItemDto) {
         if (scheduleService.isScheduleBelongToUser(ControllerUtils.getUserId(), saveScheduleItemDto.getScheduleId())
                 && disciplineService.isDisciplineExistById(saveScheduleItemDto.getDisciplineId())) {
             scheduleItemService.save(saveScheduleItemDto);
-            return new ResponseEntity<>(HttpStatus.OK);
+            return ControllerUtils.okResponse();
         } else {
             throw new AccessDeniedException("Schedule does not exists or discipline does not exists");
         }
@@ -77,7 +78,7 @@ public class ScheduleController {
         long userId = ControllerUtils.getUserId();
         if(scheduleService.isScheduleBelongToUser(userId,scheduleId)){
             scheduleService.delete(scheduleId);
-            return   new ResponseEntity<>(HttpStatus.OK);
+            return ControllerUtils.okResponse();
         }
         else throw  new AccessDeniedException("Schedule does not exists or user dont have access on it");
     }
@@ -88,10 +89,9 @@ public class ScheduleController {
         long userId = ControllerUtils.getUserId();
         if(scheduleItemService.isScheduleItemBelongsToUser(userId,scheduleItemId)){
             scheduleItemService.delete(scheduleItemId);
-            return  new ResponseEntity<>(HttpStatus.OK);
+            return ControllerUtils.okResponse();
         }
       else throw  new AccessDeniedException("ScheduleItem does not exists or user dont have access on it");
-
     }
 
 }
