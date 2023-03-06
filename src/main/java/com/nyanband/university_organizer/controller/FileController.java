@@ -50,7 +50,7 @@ public class FileController {
     }
 
     @GetMapping("/{fileId}")
-    @ApiOperation("Get all files by folder id")
+    @ApiOperation("Download file by id")
     public ResponseEntity<InputStreamResource> getFileContent(@PathVariable Long fileId) {
         long userId = ControllerUtils.getUserId();
         if (fileService.isFileBelongsToUser(fileId, userId)) {
@@ -97,7 +97,7 @@ public class FileController {
 
     @PostMapping("/delete")
     @ApiOperation("Delete file by id")
-    public ResponseEntity<?> deleteFile(@RequestBody Long fileId) {
+    public ResponseEntity<?> deleteFile(@RequestParam Long fileId) {
         long userId = ControllerUtils.getUserId();
 
         if (fileService.isFileBelongsToUser(fileId, userId)) {

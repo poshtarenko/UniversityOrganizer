@@ -12,7 +12,7 @@ import javax.validation.constraints.NotEmpty;
 @AllArgsConstructor
 @Getter
 @Setter
-public class AuthRequest {
+public class SignUpRequest {
     @Email
     @UniqueUserEmailConstraint
     String email;

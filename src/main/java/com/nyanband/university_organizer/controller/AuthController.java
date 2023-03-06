@@ -1,18 +1,15 @@
 package com.nyanband.university_organizer.controller;
 
 import com.nyanband.university_organizer.controller.util.ControllerUtils;
-import com.nyanband.university_organizer.repository.RoleRepository;
-import com.nyanband.university_organizer.repository.UserRepository;
 import com.nyanband.university_organizer.security.jwt.JwtUtils;
-import com.nyanband.university_organizer.security.pojo.AuthRequest;
 import com.nyanband.university_organizer.security.pojo.JwtResponse;
-import com.nyanband.university_organizer.security.pojo.MessageResponse;
+import com.nyanband.university_organizer.security.pojo.SignInRequest;
+import com.nyanband.university_organizer.security.pojo.SignUpRequest;
 import com.nyanband.university_organizer.security.userdetails.UserDetailsImpl;
 import com.nyanband.university_organizer.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -50,12 +47,12 @@ public class AuthController {
 
     @PostMapping("/sign_in")
     @ApiOperation("Authentication")
-    public ResponseEntity<?> authUser(@Valid @RequestBody AuthRequest authRequest) {
+    public ResponseEntity<?> authUser(@Valid @RequestBody SignInRequest signInRequest) {
 
         Authentication authentication = authenticationManager
                 .authenticate(new UsernamePasswordAuthenticationToken(
-                        authRequest.getEmail(),
-                        authRequest.getPassword()));
+                        signInRequest.getEmail(),
+                        signInRequest.getPassword()));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtUtils.generateJwtToken(authentication);
@@ -76,9 +73,9 @@ public class AuthController {
 
     @PostMapping("/sign_up")
     @ApiOperation("Registration")
-    public ResponseEntity<?> registerUser(@Valid @RequestBody AuthRequest authRequest) {
-        authRequest.setPassword(passwordEncoder.encode(authRequest.getPassword()));
-        userService.register(authRequest);
+    public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpRequest signUpRequest) {
+        signUpRequest.setPassword(passwordEncoder.encode(signUpRequest.getPassword()));
+        userService.register(signUpRequest);
         return ControllerUtils.okResponse();
     }
 }
